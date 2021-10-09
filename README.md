@@ -75,8 +75,8 @@ The view layer of our application will be developed with Vue.js and will be the 
 ![milestone 3 entity relationship diagram](/milestone3_erd.PNG "milestone 3 erd")
 ## Timeline
 - [x] 9/10/21: Milestone 1 (Requirements)
-- [ x] 10/1/21: Milestone 2 (Design and Design Patterns)
-- [ ]x 10/8/21: Milestone 3 (Layering)
+- [x] 10/1/21: Milestone 2 (Design and Design Patterns)
+- [x] 10/8/21: Milestone 3 (Layering)
 - [ ] 10/22/21: Milestone 4 (Exception Handling)
 - [ ] 11/5/21: Milestone 5 (Performance and Refactoring)
 - [ ] 11/19/21: Milestone 6 (Testing)
