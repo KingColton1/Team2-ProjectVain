@@ -56,7 +56,7 @@ MVVM Diagram
 Source for image above: https://www.journaldev.com/20292/android-mvvm-design-pattern
 
 ### Model
-    The Model layer within our application is going to consist of a variety of classes.  It will contain User, Book, Author and Publisher classes. It will also contain our Datalayer.  
+The Model layer within our application is going to consist of a variety of classes.  It will contain User, Book, Author and Publisher classes. It will also contain our Datalayer.  
 The Book class has attributes for the Type of book, genre, Author, Title, Description, Notes, Year and Publisher.  The Publisher and Author will be arrays of the related objects,  since there can be more than one Publisher and Author.  The constructor has a param for each attribute and can only be instantiated with them. It also contains get/set methods for each attribute.    
 The Publisher class has attributes for Publishers Name and Location. The constructor has a param for each attribute and can only be instantiated with them. It also contains get/set method for each attribute.. 
 The Author class has attributes for Author Name. The constructor has a param for the attribute and can only be instantiated with it. It also contains get/set methods.
@@ -64,15 +64,15 @@ The User class has attributes for User Name, UserID, Email and Password. The con
 The Datalayer Class has an array attribute. It also has a constructor that establishes and tests a connection to the database.  There are several methods that retrieve requested data from the database, use that data to create the relevant objects, add them to the array attribute  and return that array of objects to its caller.
 
 ### Model-View
-    The model-view layer in our application will contain all of our logic for any operations that the user will want to perform. Some of those functions include, but are not limited to, searching for autobiographies, creating reports based on search results, and traversing between the different pages of the site.
-    Our intention with the model-view layer will be to have a two-way connection between both the view (front-end) and model (data layer) to increase faster screen loading and data collection, as well as a deliberate separation of concerns/function between the system. Having this separation of operations will allow for easier maintainability of the application as a whole for future development of the project.
+The model-view layer in our application will contain all of our logic for any operations that the user will want to perform. Some of those functions include, but are not limited to, searching for autobiographies, creating reports based on search results, and traversing between the different pages of the site.
+Our intention with the model-view layer will be to have a two-way connection between both the view (front-end) and model (data layer) to increase faster screen loading and data collection, as well as a deliberate separation of concerns/function between the system. Having this separation of operations will allow for easier maintainability of the application as a whole for future development of the project.
 
 ### View
     The view layer of our application will be developed with Vue.js and will be the interface in which the user has access to the system. The view will contain items like search bars for querying the database, as well as the results from said queries. The view will not have any logic associated with the application, but rather a front-end layer design specifically for the user(s). The view will have direct access to the model-view layer of the application, which will then connect to the model layer. 
 
 
 ## Entity Relationship Diagram
-![milestone 2 entity relationship diagram](/milestone3_erd.png "milestone 3 erd")
+![milestone 3 entity relationship diagram](/milestone3_erd.png "milestone 3 erd")
 ## Timeline
 - [x] 9/10/21: Milestone 1 (Requirements)
 - [ ] 10/1/21: Milestone 2 (Design and Design Patterns)
