@@ -1,12 +1,13 @@
-*Milestone 3 - Layers
+*Milestone 3 - Layers*
+
 Sarah Irons; Colton Bailiff; Nathan Radin; David Niggli
-October 8, 2021*
+October 8, 2021
 
 ## Team Members and Roles
-Sarah Irons - Programmer/Designer
-Colton Bailiff - Front-end Lead
-Nathan Radin - Team Lead
-David Niggli - DB Admin
+- Sarah Irons - Programmer/Designer
+- Colton Bailiff - Front-end Lead
+- Nathan Radin - Team Lead
+- David Niggli - DB Admin
  
 ## Background
 There are many autobiographies from the Victorian Era that Vein has collected together. These autobiographies range from the wealthy to the poor, passing through a multitude of genres and stories. Vein would like for us to create a maintainable database to store these records, as well as an interactive application to allow for people to search for different autobiographies.
