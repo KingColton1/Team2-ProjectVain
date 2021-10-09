@@ -68,15 +68,15 @@ The model-view layer in our application will contain all of our logic for any op
 Our intention with the model-view layer will be to have a two-way connection between both the view (front-end) and model (data layer) to increase faster screen loading and data collection, as well as a deliberate separation of concerns/function between the system. Having this separation of operations will allow for easier maintainability of the application as a whole for future development of the project.
 
 ### View
-    The view layer of our application will be developed with Vue.js and will be the interface in which the user has access to the system. The view will contain items like search bars for querying the database, as well as the results from said queries. The view will not have any logic associated with the application, but rather a front-end layer design specifically for the user(s). The view will have direct access to the model-view layer of the application, which will then connect to the model layer. 
+The view layer of our application will be developed with Vue.js and will be the interface in which the user has access to the system. The view will contain items like search bars for querying the database, as well as the results from said queries. The view will not have any logic associated with the application, but rather a front-end layer design specifically for the user(s). The view will have direct access to the model-view layer of the application, which will then connect to the model layer. 
 
 
 ## Entity Relationship Diagram
-![milestone 3 entity relationship diagram](/milestone3_erd.png "milestone 3 erd")
+![milestone 3 entity relationship diagram](/milestone3_erd.PNG "milestone 3 erd")
 ## Timeline
 - [x] 9/10/21: Milestone 1 (Requirements)
-- [ ] 10/1/21: Milestone 2 (Design and Design Patterns)
-- [ ] 10/8/21: Milestone 3 (Layering)
+- [ x] 10/1/21: Milestone 2 (Design and Design Patterns)
+- [ ]x 10/8/21: Milestone 3 (Layering)
 - [ ] 10/22/21: Milestone 4 (Exception Handling)
 - [ ] 11/5/21: Milestone 5 (Performance and Refactoring)
 - [ ] 11/19/21: Milestone 6 (Testing)
