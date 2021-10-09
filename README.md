@@ -53,7 +53,8 @@ We will be using the observer pattern on the viewmodel for the application in or
 
 MVVM Diagram
 ![alt text](https://cdn.journaldev.com/wp-content/uploads/2018/04/android-mvvm-pattern.png)
-Source for image above: https://www.journaldev.com/20292/android-mvvm-design-pattern
+Source for image above: 
+https://www.journaldev.com/20292/android-mvvm-design-pattern
 
 ### Model
 The Model layer within our application is going to consist of a variety of classes.  It will contain User, Book, Author and Publisher classes. It will also contain our Datalayer.  
