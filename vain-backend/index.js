@@ -2,10 +2,14 @@ const express = require('express');
 
 // solve cors issue?
 const cors = require('cors');
-
+var bodyParser = require("body-parser");
 const app = express();
-
+app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send('Something broke!')
+  })
 app.use(cors());
+app.use(bodyParser.json());
 const port = 5000;
 const Pool = require('pg').Pool;
 const pool = new Pool({
@@ -104,9 +108,11 @@ app.get('/bookPublishers', (req, res, next) => {
 });
 
 app.post('/books', (req, res, next) => {
-    console.log(req);
+    console.log(req.body);
+    res.send("This Worked "+ req.body.title);
 });
 
 app.listen(port, () => {
     console.log(`vain backend app is running on port ${port}`);
 });
+
