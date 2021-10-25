@@ -1,7 +1,7 @@
 To run:
   * In order to run this application successfully on linux you must first set a password for the “Student” user in POSTGRESQL.  Or, if you have your own user defined, 
   you can update the name an pw in the creds.js file before running the script
-  * To update teh student password, open a terminal and run the following commands: 
+  * To update the student password, open a terminal and run the following commands: 
 	```
 	   sudo -u postgres psql
        alter user student with encrypted password 'student';
