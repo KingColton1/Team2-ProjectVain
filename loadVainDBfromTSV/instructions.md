@@ -4,7 +4,8 @@ To run:
   * To update the student password, open a terminal and run the following commands: 
 	```
 	   sudo -u postgres psql
-       alter user student with encrypted password 'student';
+       ALTER USER student with encrypted password 'student';
+	   ALTER USER student CREATEDB;
 	```
 
   * once this is done, you can now download the vaindbnode file and run the vaininstall.js script with node

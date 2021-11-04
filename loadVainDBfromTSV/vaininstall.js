@@ -1,39 +1,44 @@
+//catch all errors
 process.on('unhandledRejection',(reason, promise)=>{
     console.log(reason+'          '+promise);
 });
+
+//import vars from sql.js
 const {createDBs, insertBook, getPubliserFromBook, insertNewPublisher, getPubliserWithBookIDFromBook, getPubliserWithPublisherIDFromPublisher, insertNewPublisherBook,
-    getAuthorFromBook, getAuthorWithBookIDFromBook, getAuthorWithAuthorIDFromAuthor, insertNewAuthor, insertNewAuthorBook,ifDBExists} = require('./sql.js');
+    getAuthorFromBook, getAuthorWithBookIDFromBook, getAuthorWithAuthorIDFromAuthor, insertNewAuthor, insertNewAuthorBook,ifDBExists, getTypeWithBookIDFromBook
+    ,insertNewTypeBook,getSubjectWithBookIDFromBook,insertNewSubjectBook, scrubTables} = require('./sql.js');
+
+// import vars from logic.js    
+const {fixdescriptionandnotes, fixtypeandgenre, matchAuthorBook,matchPublisherBook, splitAuthor, splitPublisher
+  ,authorAuthorArray,authorBookArray, authoridBookidArray,  publisherBookArray, publisherPublisherArray, publisheridBookidArray} = require('./logic.js');
+
+//import vars from creds.js  
 const {credentials, credentialsMain} = require('./creds.js');
+//create postgres pool and client
 const { Pool, Client } = require("pg");
+//import nodejs tools
 var pgtools = require("pgtools");
 const fs = require('fs');
 const readline = require('readline');
 const stream = require('stream');
 const input = fs.createReadStream("vain.tsv");
 
+//create needed array constants
 const bookArray = [];
 const dbArray= [];
-
 const publisherArray = [];
-const publisherBookArray=[];
-const publisherPublisherArray=[];
-const publisheridBookidArray=[];
-
 const authorArray = [];
-const authorBookArray=[];
-const authorAuthorArray=[];
-const authoridBookidArray=[];
+const typeBookArray=[];
+const subjectBookArray=[];
 
-
-  
+//instantiate pool with default postgres database
 const poolMain = new Pool(credentialsMain);
 
-
-  
+//instantiate pool with vain_db database
 const pool = new Pool(credentials);
 
 
-
+//read lines from the vain.tsv file
   function readLines({ input }) {
     const output = new stream.PassThrough({ objectMode: true });
     const rl = readline.createInterface({ input });
@@ -48,8 +53,8 @@ const pool = new Pool(credentials);
 
 
   
-  // Connect with a client.
 
+//check if vain_db already exists
   async function checkForVainDB() {
     const client = await poolMain.connect();
     const result = await client.query({
@@ -63,7 +68,7 @@ const pool = new Pool(credentials);
     await client.end();
     return result;
 }
-
+//create vain_db
 async function CreateDB() {
     const client = new Client(credentials);
     await client.connect();
@@ -74,38 +79,23 @@ async function CreateDB() {
 }
 
 
-
-async function insertBooks(book) {
-    const values = [book.type, book.hadHelp, book.genre, book.title, book.year, book.description, book.namedPersons, book.notes, book.located, book.publisher, book.author];
-    const now =  pool.query(insertBook,values);
+//execte sql command with no varaibale injection
+async function executeCommand(sql) {
     
-    return now;
+  return  pool.query(sql);
+   
+   
 }
 
-
-
-async function insertPublisher(publisher) {
-    const values = [publisher.location, publisher.publisher, publisher.full];
-    const now =  pool.query(insertNewPublisher,values);
-    
-    return now;
-}
-
-async function insertPublisherBook(publisherBook) {
-    const values = [publisherBook.publisherid, publisherBook.bookid];
-    const now =  pool.query(insertNewPublisherBook,values);
-    
-    return now;
-}
-
-
+//insert an object into vain_db
 async function insertObject(sql, obj) {
-    const values = obj;
-    const now =  pool.query(sql,values);
     
-    return now;
+   return  pool.query(sql,obj);
+    
+    
 }
 
+//get object from vain_db.  must sql and array that you wnat populated with results
 async function getObject(sql,array) {
     const client = await pool.connect();
     const result = await client.query({
@@ -120,107 +110,10 @@ async function getObject(sql,array) {
     return result;
 }
 
-async function getPublishers() {
-    const client = await pool.connect();
-    const result = await client.query({
-        rowMode: 'array',
-        text: getPubliserFromBook,
-    })
-    result.rows.forEach(row=>{
-        publisherArray.push(row );
-    });
 
-    await client.end();
-    return result;
-}
-
-async function getPublisherWithPublisher() {
-    const client = await pool.connect();
-    const result = await client.query({
-        rowMode: 'array',
-        text: getPubliserWithPublisherIDFromPublisher,
-    })
-    result.rows.forEach(row=>{
-        publisherPublisherArray.push(row );
-    });
-
-    await client.end();
-    return result;
-      
-   }
-
-async function getPublisherWithBook() {
-    const client = await pool.connect();
-    const result = await client.query({
-         rowMode: 'array',
-         text: getPubliserWithBookIDFromBook,
-    })
-    result.rows.forEach(row=>{
-        publisherBookArray.push(row );
-    });
-    await client.end();
-    return result;
-}
-
-async function insertAuthor(author) {
-    const values = [author[0]];
-    const now =  pool.query(insertNewAuthor,values);
-    
-    return now;
-}
-
-async function insertAuthorBook(authorBook) {
-    const values = [authorBook.authorid, authorBook.bookid];
-    const now =  pool.query(insertNewAuthorBook,values);
-    
-    return now;
-}
-
-
-async function getAuthors() {
-    const client = await pool.connect();
-    const result = await client.query({
-        rowMode: 'array',
-        text: getAuthorFromBook,
-    })
-    result.rows.forEach(row=>{
-        authorArray.push(row );
-    });
-
-    await client.end();
-    return result;
-}
-
-async function getAuthorWithAuthor() {
-    const client = await pool.connect();
-    const result = await client.query({
-        rowMode: 'array',
-        text: getAuthorWithAuthorIDFromAuthor,
-    })
-    result.rows.forEach(row=>{
-        authorAuthorArray.push(row );
-    });
-
-    await client.end();
-    return result;
-      
-   }
-
-async function getAuthorWithBook() {
-    const client = await pool.connect();
-    const result = await client.query({
-         rowMode: 'array',
-         text: getAuthorWithBookIDFromBook,
-    })
-    result.rows.forEach(row=>{
-        authorBookArray.push(row );
-    });
-    await client.end();
-    return result;
-}
 
   
-  
+//async function that inserts vain.tsv into vain_db.book and populates bookArray[]
 (async () => {
     let i=0;
     
@@ -264,20 +157,23 @@ async function getAuthorWithBook() {
   
 })();
  
-  
+ 
+
+//these are all of the other asyn steps that take place to populate the database
 (async () => {
-    await checkForVainDB();
-if(dbArray.length == 1){
-    await pgtools.dropdb(credentialsMain, "vain_db");
-    await pgtools.createdb(credentialsMain, "vain_db");
-}else{
-    await pgtools.createdb(credentialsMain, "vain_db");
+    await checkForVainDB();//check to see if vain_eb exists by populating dbArray if exists
+if(dbArray.length == 1){//check if dbArray has a record.  if true drop current VAIN_db and create a new on
+    await pgtools.dropdb(credentialsMain, "vain_db");//drop current vain_db
+    await pgtools.createdb(credentialsMain, "vain_db");//create new vain_db
+}else{//if not true just create vain_db without drop
+    await pgtools.createdb(credentialsMain, "vain_db");// create new vain_db
     }
            
-  const clientResult = await CreateDB();
+  await executeCommand(createDBs);//execute sql to create tables
 
-   await Promise.all(bookArray.map(async (elem) => {
+   await Promise.all(bookArray.map(async (elem) => {//loop through bookArray[] and insert into book table
         try {
+          //pass sql and vars to insertObject()
             await insertObject(insertBook,[elem.type, elem.hadHelp, elem.genre, elem.title, elem.year, elem.description, elem.namedPersons, elem.notes, elem.located, elem.publisher, elem.author]);
             
         } catch (error) {
@@ -289,12 +185,11 @@ if(dbArray.length == 1){
      
     console.log("Done adding books");
     console.log("adding publishers");
-    await getObject(getPubliserFromBook,publisherArray);
-    //await getPublishers();
-
-    await Promise.all( publisherArray.map(async (elem) => {
+    await getObject(getPubliserFromBook,publisherArray);//fill publisherArray with distinct publisher data from book table
+   
+    await Promise.all( publisherArray.map(async (elem) => {//loop through publisherArray[] and insert into publisher table
         try {
-            await insertObject(insertNewPublisher,splitPublisher(elem));
+            await insertObject(insertNewPublisher,splitPublisher(elem)); //pass sql and vars to insertObject()
             
         } catch (error) {
           console.log('error'+ error);
@@ -302,13 +197,14 @@ if(dbArray.length == 1){
           
         }
       }))
-      await getObject(getPubliserWithBookIDFromBook, publisherBookArray);
-      //await getPublisherWithBook();
-      await getObject(getPubliserWithPublisherIDFromPublisher, publisherPublisherArray);
-      //await getPublisherWithPublisher();
-      await matchPublisherBook();
-      await Promise.all( publisheridBookidArray.map(async (elem) => {
+      await getObject(getPubliserWithBookIDFromBook, publisherBookArray); //fill publisherBookArray[] with publisher and book data from book table 
+    
+      await getObject(getPubliserWithPublisherIDFromPublisher, publisherPublisherArray); // fill publisherPublisherArray[] with plublisher info from publisher table
+    
+      await matchPublisherBook();// match publisher data to book data and push it to publisheridBookidArray[]
+      await Promise.all( publisheridBookidArray.map(async (elem) => {// loop through publisheridBookidArray[] and insert it into publisher_book table
         try {
+          //pass sql and vars to insertObject()
             await insertObject(insertNewPublisherBook,[elem.publisherid, elem.bookid]);
             
         } catch (error) {
@@ -319,11 +215,14 @@ if(dbArray.length == 1){
       }))
       console.log("Done adding Publishers");
       console.log("adding Authors");
-      await getObject(getAuthorFromBook, authorArray);
-      //await getAuthors();
-      await Promise.all( authorArray.map(async (elem) => {
+
+
+      await getObject(getAuthorFromBook, authorArray);//fill authorArray[] with distinct author data from book table
+    
+      await Promise.all( authorArray.map(async (elem) => {// loop through authorArray[] and insert it into author table
         try {
-            await insertObject(insertNewAuthor,[elem[0]]);
+            //pass sql and vars to insertObject()
+            await insertObject(insertNewAuthor,splitAuthor(elem[0]));
             
         } catch (error) {
           console.log('error'+ error);
@@ -331,13 +230,14 @@ if(dbArray.length == 1){
           
         }
       }))
-      await getObject(getAuthorWithBookIDFromBook, authorBookArray);
-      //await getAuthorWithBook();
-      await getObject(getAuthorWithAuthorIDFromAuthor, authorAuthorArray);
-      //await getAuthorWithAuthor();
-      await matchAuthorBook();
-      await Promise.all( authoridBookidArray.map(async (elem) => {
-        try {
+      await getObject(getAuthorWithBookIDFromBook, authorBookArray);// fill authorBookArray[] with author and book info from book table
+      
+      await getObject(getAuthorWithAuthorIDFromAuthor, authorAuthorArray);  //fill authorAuthorArray[] with author info from author table
+    
+      await matchAuthorBook();//match booka nd author info and push it to authoridBookidArray[]
+      await Promise.all( authoridBookidArray.map(async (elem) => {// loop through authoridBookidArray[] and insert it into author_book table
+        try { 
+          // pass sql and vars to inserObject()
             await insertObject(insertNewAuthorBook,[elem.authorid, elem.bookid]);
             
         } catch (error) {
@@ -347,97 +247,52 @@ if(dbArray.length == 1){
         }
       }))
       console.log("Done adding Authors");
+
+      await getObject(getTypeWithBookIDFromBook, typeBookArray);// fill typeBookArray[] with book type and id from book table
+
+
+      await Promise.all( typeBookArray.map(async (elem) => {//loop through typBookArray[] and insert into type_book table 
+        try {
+            await insertObject(insertNewTypeBook,[elem[0], elem[1]]);
+            
+        } catch (error) {
+          console.log('error'+ error);
+          console.log(elem);
+          
+        }
+      }))
+
+      console.log("Done adding Types");
+      await getObject(getSubjectWithBookIDFromBook, subjectBookArray);// fill subjectBookArray[] with  subject and book id from book table
+
+      
+
+      await Promise.all( subjectBookArray.map(async (elem) => {//loop thgrough subjectBookArray[] and insert subject and book id into subject_book table
+        try {
+            await insertObject(insertNewSubjectBook,[elem[0], elem[1]]);
+            
+        } catch (error) {
+          console.log('error'+ error);
+          console.log(elem);
+          
+        }
+      }))
+      console.log("Done adding Subjects");
+
+      console.log("Cleaning up Book Table");
+      await executeCommand(scrubTables); // drop unneeded columns from book and publisher table
+      console.log("Done Cleaning Book Table");
+
       console.log("Database has been loaded");
   
     pool.end();
-    process.exit(1);
+    process.exit(0);
 
   
 
   })();
 
 
-
-function matchPublisherBook(){
-
-    publisherBookArray.forEach(x=>{
-
-        publisherPublisherArray.forEach(y=>{
-
-            if(x[1] == y[1]){
-                let publisherBook ={};
-                publisherBook.bookid = x[0];
-                publisherBook.publisherid=y[0];
-                publisheridBookidArray.push(publisherBook);
-            }
-        });
-
-    });
-
-}
-
-function matchAuthorBook(){
-
-    authorBookArray.forEach(x=>{
-
-        authorAuthorArray.forEach(y=>{
-
-            if(x[1] == y[1]){
-                let authorBook ={};
-                authorBook.bookid = x[0];
-                authorBook.authorid=y[0];
-                authoridBookidArray.push(authorBook);
-            }
-        });
-
-    });
-
-}
-
-  function splitPublisher(_s){
-    let my_publisher = {};
-        s = _s[0].split(':');
-       
-
-            my_publisher.location =s[0];
-            my_publisher.publisher =s[1];
-            my_publisher.full = _s[0];
-     
-   
-    return [s[0],s[1],_s[0]];
-    // return my_publisher;
-  }
-
-  function fixdescriptionandnotes(_s){
-   // É
  
-    _s = _s.normalize("NFD").replace(/\p{Diacritic}/gu, " ")
-   
-    
-   _s = _s.replace(/'+/g, "''"); 
-   _s =  _s.replace(/"/g, ""); 
-   _s =   _s.trim();
-   _s = _s.replace(/\?+/g,'Unknown');
-   
-    return _s;
- }
- function fixtypeandgenre(_s){
 
-    _s.replace(/["]+/g, ''); 
-    _s.replace(/[']+/g, "''"); 
-    _s.trim();
-    
-    if(_s.includes("?")){
-
-        _s="U";
-    }else if(_s == 'unknown'){
-        _s="U";
-    }else if(_s==''){
-        _s = "U";
-    }else if(_s.length>2){
-        _s="U"
-    }
-    return _s;
- }
-
-
+ 
