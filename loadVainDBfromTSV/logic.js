@@ -51,10 +51,12 @@ function matchAuthorBook(){//match author info to book info and push it to autho
   
 
   function splitPublisher(_s){//split publisher fucntion
-           s = _s[0].split(':');//split on ':' to seperate location from publisher
-       
-   
-    return [s[0],s[1],_s[0]];// return split sections along with non-split in array
+           var s = _s[0].split(':');//split on ':' to seperate location from publisher
+           var publish = 'Unknown';
+      if(s[1]){
+            publish = s[1].trim();
+      }
+    return [publish,s[0],_s[0]];// return split sections along with non-split in array
     
   }
 
