@@ -40,15 +40,15 @@ export default {
     methods: {
         addBook() {
             // pull data from form fields
-            const title = this.$refs.title;
-            const year = this.$refs.year;
-            const description = this.$refs.description;
-            const notes = this.$refs.notes;
-            const people = this.$refs.people;
-            const authors = this.$refs.authors;
-            const publishers = this.$refs.publishers;
-            const genre = this.$refs.genre;
-            const type = this.$refs.type;
+            const title = this.$refs.title.text;
+            const year = this.$refs.year.text;
+            const description = this.$refs.description.message;
+            const notes = this.$refs.notes.message;
+            const people = this.$refs.people.message;
+            const authors = this.$refs.authors.checkedAuthors;
+            const publishers = this.$refs.publishers.checkedPublishers;
+            const genre = this.$refs.genre.selected;
+            const type = this.$refs.type.selected;
 
             // validate (skipping for now)
             console.log(title);
@@ -62,11 +62,7 @@ export default {
             console.log(type);
 
             // add to an array
-
-
-            // then send request to server to add new book to database
-            axios.post('http://localhost:5000/books',
-                {
+     var bookvar =  JSON.stringify({
                     title: title,
                     year: year,
                     desc: description,
@@ -76,10 +72,15 @@ export default {
                     publishers: publishers,
                     genre: genre,
                     type: type
-                }
+                   
+                })
+console.log(bookvar);
+            // then send request to server to add new book to database
+            axios.post('http://localhost:5000/books', bookvar
+             
             ).then((resp) => {
                 console.log(resp);
-            });
+            }).catch(error => console.error(error.response.data));
 
         }
     }

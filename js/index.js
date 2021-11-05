@@ -1,3 +1,8 @@
+
+ Vue.config.errorHandler = function (err, vm, info) {
+  console.error("TRACE: "+err+"\nCOMPONENET: "+vm+" INFO: "+info);
+}
+
 // Testing purpose
 var dbTable = new Vue({
   el: '.dbTable',
