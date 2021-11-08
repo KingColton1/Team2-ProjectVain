@@ -22,8 +22,8 @@ const getUserById = (req, res) => {
 
 const addNewUser = (req, res) => {
     // specify json for body values
-    const { id, fname, lname, email } = req.body;
-    pool.query('INSERT INTO "user" (user_id, fname, lname, email) VALUES ($1, $2, $3, $4)', [id, fname, lname, email])
+    const { id, fname, lname, email, role } = req.body;
+    pool.query('INSERT INTO "user" (user_id, fname, lname, email, role) VALUES ($1, $2, $3, $4, $5)', [id, fname, lname, email, role])
     .then(userData => {
         res.send(userData.rows);
     })
@@ -31,8 +31,8 @@ const addNewUser = (req, res) => {
 }
 
 const updateUserById = (req, res) => {
-    const { fname, lname, email } = req.body;
-    pool.query('UPDATE "user" SET fname = $1, lname = $2, email = $3 WHERE user_id = $4', [fname, lname, email, req.params.id])
+    const { fname, lname, email, role } = req.body;
+    pool.query('UPDATE "user" SET fname = $1, lname = $2, email = $3, role = $5 WHERE user_id = $4', [fname, lname, email, req.params.id, role])
     .then(() => {
         res.send(`User updated with user_id: ${req.params.id}`);
     })

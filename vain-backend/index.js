@@ -12,7 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 const port = 5000;
 
 // calls to query files
-const genres = require('./app/queries/genre.queries');
+const subjects = require('./app/queries/subject.queries');
+const roles = require('./app/queries/role.queries');
 const types = require('./app/queries/type.queries');
 const publishers = require('./app/queries/publisher.queries');
 const authors = require('./app/queries/author.queries');
@@ -20,6 +21,9 @@ const users = require('./app/queries/user.queries');
 const books = require('./app/queries/book.queries');
 const bookAuthors = require('./app/queries/bookAuthor.queries');
 const bookPublishers = require('./app/queries/bookPublisher.queries');
+const namedPersons = require('./app/queries/namedPersons.queries');
+const bookSubjects = require('./app/queries/bookSubject.queries');
+const bookTypes = require('./app/queries/bookType.queries');
 
 // users paths
 app.get('/users', users.getAllUsers);
@@ -29,12 +33,20 @@ app.put('/users/:id', users.updateUserById);
 app.delete('/users/:id', users.deleteUser);
 
 
+// roles paths
+app.get('/roles', roles.getAllRoles);
+app.get('/roles/:id', roles.getRoleById);
+app.post('/roles', roles.addNewRole);
+app.put('/roles/:id', roles.updateRoleByid);
+app.delete('/roles/:id', roles.deleteRole);
+
+
 // genres paths
-app.get('/genres', genres.getAllGenres);
-app.get('/genres/:id', genres.getGenreById);
-app.post('/genres', genres.addNewGenre);
-app.put('/genres/:id', genres.updateGenreById);
-app.delete('/genres/:id', genres.deleteGenre);
+app.get('/subjects', subjects.getAllSubjects);
+app.get('/subjects/:id', subjects.getSubjectById);
+app.post('/subjects', subjects.addNewSubject);
+app.put('/subjects/:id', subjects.updateSubjectById);
+app.delete('/subjects/:id', subjects.deleteSubject);
 
 
 // publishers paths
@@ -66,17 +78,26 @@ app.get('/books', books.getAllBooks);
 app.get('/books/:id', books.getBookById);
 app.post('/books', books.addNewBook);
 // put
-
 app.delete('/books/:id', books.deleteBook);
+
 
 // book authors paths
 app.get('/bookAuthors', bookAuthors.getAllBookAuthors);
-app.get('/bookAuthors/:book&:author', bookAuthors.getBookAuthorEntry);
 app.post('/bookAuthors', bookAuthors.addNewBookAuthors);
+
 
 // book publishers paths
 app.get('/bookPublishers', bookPublishers.getAllBookPublishers);
 app.post('/bookPublishers', bookPublishers.addNewBookPublishers);
+
+
+// book types paths
+app.get('/bookTypes', bookTypes.getAllBookTypes);
+app.post('/bookTypes', bookTypes.addNewBookType);
+
+// book subjects paths
+app.get('/bookSubjects', bookSubjects.getAllBookSubjects);
+app.post('/bookSubjects', bookSubjects.addNewBookSubject);
 
 app.listen(port, () => {
     console.log(`vain backend app is running on port ${port}`);

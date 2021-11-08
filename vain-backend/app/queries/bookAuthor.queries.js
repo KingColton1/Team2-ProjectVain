@@ -21,15 +21,15 @@ const addNewBookAuthors = (req, res) => {
     .catch(e => console.error(e.stack));
 }
 
-const getBookAuthorEntry = (req, res) => {
-    console.log(req.params);
-    pool.query('SELECT * FROM author_book WHERE book_id = $1 AND author_id = $2', [req.params.book, req.params.author])
-    .then(bookAuthorData => {
-        console.log(bookAuthorData);
-        res.send(bookAuthorData.rows);
-    })
-    .catch(e => console.error(e.stack));
-}
+// const getBookAuthorEntry = (req, res) => {
+//     console.log(req.params);
+//     pool.query('SELECT * FROM author_book WHERE book_id = $1 AND author_id = $2', [req.params.book, req.params.author])
+//     .then(bookAuthorData => {
+//         console.log(bookAuthorData);
+//         res.send(bookAuthorData.rows);
+//     })
+//     .catch(e => console.error(e.stack));
+// }
 
 const deleteBookAuthorEntry = (req, res) => {
     pool.query('DELETE FROM author_book WHERE book_id = $1 AND author_id = $2', [req.params.book, req.params.author])
@@ -42,6 +42,5 @@ const deleteBookAuthorEntry = (req, res) => {
 module.exports = {
     getAllBookAuthors,
     addNewBookAuthors,
-    getBookAuthorEntry,
     deleteBookAuthorEntry
 }

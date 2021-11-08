@@ -21,9 +21,9 @@ const getBookById = (req, res) => {
 }
 
 const addNewBook = (req, res) => {
-    const { title, year, desc, notes, people, authors, publishers, genre, type } = req.body;
-    pool.query('INSERT INTO book (type, hadHelp, genre, title, year, description, namedPersons, notes, located, modifiedby, lastupdated, publisher, author) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
-        [type, 'U', genre, title, year, desc, people, notes, '', 'System', new Date('2021-10-31'), publishers, authors])
+    const { authorship, title, year, description, namedpersons, notes, located, modifiedby, lastupdated } = req.body;
+    pool.query('INSERT INTO book (authorship, title, year, description, namedpersons, notes, located, modifiedby, lastupdate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+        [authorship, title, year, description, namedpersons, notes, located, modifiedby, lastupdated])
     .then(bookData => {
         res.send(bookData.rows);
     })
@@ -38,19 +38,9 @@ const deleteBook = (req, res) => {
     .catch(e => console.error(e.stack));
 }
 
-const updateBookById = (req, res) => {
-    const { title, hadHelp, year, desc, notes, people, located, authors, publishers, genre, type, lastUpdated, modifiedBy } = req.body;
-    pool.query('UPDATE book SET author = $1, WHERE book_id = $2', [type, hadHelp, genre, title, year, desc, people, notes, located, modifiedBy, lastUpdated, publishers, authors, req.params.id])
-    .then(() => {
-        res.send(`Book updated with book_id: ${req.params.id}`);
-    })
-    .catch(e => console.error(e.stack));
-}
-
 module.exports = {
     getAllBooks,
     getBookById,
     addNewBook,
-    deleteBook,
-    updateBookById,
+    deleteBook
 }
