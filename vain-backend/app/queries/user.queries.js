@@ -2,10 +2,8 @@ const db = require('../config/db.config');
 const pool = db.pool;
 
 const getAllUsers = (req, res) => {
-    console.log('User data: ');
     pool.query('SELECT * FROM "user"')
     .then(userData => {
-        console.log(userData);
         res.send(userData.rows);
     })
     .catch(e => console.error(e.stack));
@@ -14,7 +12,6 @@ const getAllUsers = (req, res) => {
 const getUserById = (req, res) => {
     pool.query('SELECT * FROM "user" WHERE user_id = $1', [req.params.id])
     .then(userData => {
-        console.log(userData);
         res.send(userData.rows);
     })
     .catch(e => console.error(e.stack));

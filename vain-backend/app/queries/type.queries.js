@@ -2,10 +2,8 @@ const db = require('../config/db.config');
 const pool = db.pool;
 
 const getAllTypes = (req, res) => {
-    console.log('Type Data: ');
     pool.query('SELECT * FROM type')
     .then(typeData => {
-        console.log(typeData);
         res.send(typeData.rows);
     })
     .catch(e => console.error(e.stack));
@@ -14,7 +12,6 @@ const getAllTypes = (req, res) => {
 const getTypeById = (req, res) => {
     pool.query('SELECT * FROM type WHERE type_id = $1', [req.params.id])
     .then(typesData => {
-        console.log(typesData);
         res.send(typesData.rows);
     })
     .catch(e => console.error(e.stack));

@@ -5,7 +5,6 @@ const table = "subject_book";
 const getAllBookSubjects = (req, res) => {
     pool.query(`SELECT * FROM ${table}`)
     .then(bookSubjectData => {
-        console.log(bookSubjectData);
         res.send(bookSubjectData.rows);
     })
     .catch(e => console.error(e.stack));
@@ -21,7 +20,16 @@ const addNewBookSubject = (req, res) => {
     .catch(e => console.error(e.stack));
 }
 
+const getAllBooksWithSubject = (req, res) => {
+    pool.query(`SELECT * FROM ${table} INNER JOIN book on (${table}.book_id = book.book_id) WHERE subject_id = $1`, [req.params.subject])
+    .then(booksData => {
+        res.send(booksData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
 module.exports = {
     getAllBookSubjects,
     addNewBookSubject,
+    getAllBooksWithSubject
 }

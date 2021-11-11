@@ -2,10 +2,8 @@ const db = require('../config/db.config');
 const pool = db.pool;
 
 const getAllPublishers = (req, res) => {
-    console.log('Publisher Data: ');
     pool.query('SELECT * FROM publisher')
     .then(publisherData => {
-        console.log(publisherData);
         res.send(publisherData.rows);
     })
     .catch(e => console.error(e.stack));
@@ -14,7 +12,6 @@ const getAllPublishers = (req, res) => {
 const getPublisherById = (req, res) => {
     pool.query('SELECT * FROM publisher WHERE publisher_id = $1', [req.params.id])
     .then(publisherData => {
-        console.log(publisherData);
         res.send(publisherData.rows);
     })
     .catch(e => console.error(e.stack));
@@ -26,7 +23,6 @@ const addNewPublisher = (req, res) => {
     const full = `${location}: ${publisher}`;
     pool.query('INSERT INTO publisher (publisher, publisherLocation, publisherFull) VALUES ($1, $2, $3)', [publisher, location, full])
     .then(publisherData => {
-        console.log(publisherData);
         res.send(publisherData.rows);
     })
     .catch(e => console.error(e.stack));

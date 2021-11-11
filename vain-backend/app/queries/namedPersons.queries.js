@@ -4,7 +4,6 @@ const table = "namedpersons";
 const getAllNamedPersons = (req, res) => {
     db.pool.query(`SELECT * FROM ${table}`)
     .then(genreData => {
-        console.log(genreData);
         res.send(genreData.rows);
     })
     .catch(e => console.error(e.stack));
@@ -13,7 +12,6 @@ const getAllNamedPersons = (req, res) => {
 const getNamedPersonByAuthorId = (req, res) => {
     db.pool.query(`SELECT * FROM ${table} WHERE author_id = $1`, [req.params.id])
     .then(genreData => {
-        console.log(genreData);
         res.send(genreData.rows);
     })
     .catch(e => console.error(e.stack));

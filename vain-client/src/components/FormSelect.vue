@@ -4,7 +4,7 @@
         <div v-if="valueType === 'genre'">
             <select v-model="selected">
                 <option disabled value="">Select a Genre</option>
-                <option v-for="genre in genres" :key="genre.genre_id" :value="genre.genre_id">{{genre.genre}}</option>
+                <option v-for="genre in genres" :key="genre.subject_id" :value="genre.subject_id">{{genre.subject}}</option>
             </select>
             <p>{{selected}}</p>
         </div>
@@ -39,12 +39,10 @@ export default {
     },
     mounted() {
         // call api for values
-        axios.get('http://localhost:5000/genres').then((resp) => {
-            console.log(resp);
+        axios.get('http://localhost:5000/subjects').then((resp) => {
             this.genres = resp.data;
         });
         axios.get('http://localhost:5000/types').then((resp) => {
-            console.log(resp);
             this.types = resp.data;
         });
     },

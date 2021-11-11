@@ -2,10 +2,8 @@ const db = require('../config/db.config');
 const pool = db.pool;
 
 const getAllBookAuthors = (req, res) => {
-    console.log('Book Author Data: ');
     pool.query('SELECT * FROM author_book')
     .then(bookAuthorData => {
-        console.log(bookAuthorData);
         res.send(bookAuthorData.rows);
     })
     .catch(e => console.error(e.stack));
@@ -39,8 +37,17 @@ const deleteBookAuthorEntry = (req, res) => {
     .catch(e => console.error(e.stack));
 }
 
+const getAllBooksWithAuthor = (req, res) => {
+    pool.query(`SELECT * FROM author_book INNER JOIN book on (author_book.book_id = book.book_id) WHERE author_id = $1`, [req.params.author])
+    .then(booksData => {
+        res.send(booksData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
 module.exports = {
     getAllBookAuthors,
     addNewBookAuthors,
-    deleteBookAuthorEntry
+    deleteBookAuthorEntry,
+    getAllBooksWithAuthor
 }

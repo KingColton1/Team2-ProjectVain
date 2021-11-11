@@ -4,7 +4,6 @@ const pool = db.pool;
 const getAllRoles = (req, res) => {
     pool.query('SELECT * FROM role')
     .then(roleData => {
-        console.log(roleData);
         res.send(roleData.rows);
     })
     .catch(e => console.error(e.stack));
@@ -13,7 +12,6 @@ const getAllRoles = (req, res) => {
 const getRoleById = (req, res) => {
     pool.query('SELECT * FROM role WHERE role_id = $1', [req.params.id])
     .then(roleData => {
-        console.log(roleData);
         res.send(roleData.rows);
     })
     .catch(e => console.error(e.stack));

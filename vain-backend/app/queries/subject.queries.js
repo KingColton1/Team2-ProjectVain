@@ -4,7 +4,6 @@ const table = "subject";
 const getAllSubjects = (req, res) => {
     db.pool.query(`SELECT * FROM ${table}`)
     .then(genreData => {
-        console.log(genreData);
         res.send(genreData.rows);
     })
     .catch(e => console.error(e.stack));
@@ -13,7 +12,6 @@ const getAllSubjects = (req, res) => {
 const getSubjectById = (req, res) => {
     db.pool.query(`SELECT * FROM ${table} WHERE subject_id = $1`, [req.params.id])
     .then(genreData => {
-        console.log(genreData);
         res.send(genreData.rows);
     })
     .catch(e => console.error(e.stack));

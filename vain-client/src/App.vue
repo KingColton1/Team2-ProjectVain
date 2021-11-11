@@ -131,7 +131,7 @@
 //importing bootstrap 5 and axios
 import "bootstrap/dist/css/bootstrap.min.css";
 import AddBookForm from './views/AddBookForm.vue';
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   views: {
     AddBookForm,
@@ -162,12 +162,11 @@ export default {
     //     this.authors = resp.data;
     //   });
 
-    axios
-      .get('http://localhost:5000/books')
-      .then((resp) => {
-        console.log(resp);
-        this.books = resp.data;
-      });
+    // axios
+    //   .get('http://localhost:5000/books')
+    //   .then((resp) => {
+    //     this.books = resp.data;
+    //   });
 
     // axios
     //   .get('http://localhost:5000/types')

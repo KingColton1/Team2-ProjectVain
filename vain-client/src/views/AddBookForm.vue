@@ -6,11 +6,20 @@
             <br />
             <FormTextField placeholderText="Year" ref="year" />
             <br />
+            <FormTextField placeholderText="Located" ref="located" />
+            <br />
             <FormTextArea placeholderText="Description" ref="description" />
             <br />
             <FormTextArea placeholderText="Notes" ref="notes" />
             <br />
-            <FormTextArea placeholderText="Named People" ref="people" />
+            <FormTextArea placeholderText="Named Persons" ref="named" />
+            <br />
+            <div class="authorship">
+                <h3>Self Authored?</h3>
+                <input type="radio" name="authorship" value="Y" v-model="authorship" /> Yes <br />
+                <input type="radio" name="authorship" value="N" v-model="authorship" /> No <br />
+                <input type="radio" name="authorship" value="U" v-model="authorship" /> Unknown <br />
+            </div>
             <br />
             <FormCheckList headerText="Select Author(s)" listType="author" ref="authors" />
             <br />
@@ -37,6 +46,11 @@ export default {
         FormCheckList,
         FormSelect
     },
+    data() {
+        return {
+            authorship: ''
+        }
+    },
     methods: {
         addBook() {
             // pull data from form fields
@@ -44,42 +58,82 @@ export default {
             const year = this.$refs.year.text;
             const description = this.$refs.description.message;
             const notes = this.$refs.notes.message;
-            const people = this.$refs.people.message;
             const authors = this.$refs.authors.checkedAuthors;
             const publishers = this.$refs.publishers.checkedPublishers;
             const genre = this.$refs.genre.selected;
             const type = this.$refs.type.selected;
+            const authorship = this.authorship;
+            const named = this.$refs.named.message;
+            const located = this.$refs.located.text;
 
             // validate (skipping for now)
-            console.log(title);
-            console.log(year);
-            console.log(description);
-            console.log(notes);
-            console.log(people);
-            console.log(authors);
-            console.log(publishers);
-            console.log(genre);
-            console.log(type);
 
             // add to an array
-     var bookvar =  JSON.stringify({
-                    title: title,
-                    year: year,
-                    desc: description,
-                    notes: notes,
-                    people: people,
-                    authors: authors,
-                    publishers: publishers,
-                    genre: genre,
-                    type: type
-                   
-                })
-console.log(bookvar);
-            // then send request to server to add new book to database
-            axios.post('http://localhost:5000/books', bookvar
-             
-            ).then((resp) => {
+            var bookvar =  {
+                title: title,
+                year: year,
+                description: description,
+                notes: notes,
+                authorship: authorship,
+                namedpersons: named,
+                located: located,
+                modifiedby: "System",
+                lastupdated: "2021-11-11"
+            };
+            console.log(bookvar);
+
+            var bookId = null;
+            // first send request to add book
+            axios.post('http://localhost:5000/books', bookvar)
+            .then((resp) => {
                 console.log(resp);
+                bookId = resp.data.rows[0].book_id;
+                if (bookId == null) {
+                    return;
+                }
+                // then send request to add book author (using returned id)
+                authors.forEach(author => {
+                    var authorvar = {
+                        author_id: author.author_id,
+                        book_id: bookId // hard coded temporarily
+                    };
+                    axios.post('http://localhost:5000/bookAuthors', authorvar)
+                    .then((resp) => {
+                        console.log(resp);
+                    }).catch(error => console.error(error.response.data));
+                });
+
+                // book type
+                var typevar = {
+                    type_id: type,
+                    book_id: bookId
+                };
+                axios.post('http://localhost:5000/bookTypes', typevar)
+                .then((resp) => {
+                    console.log(resp);
+                }).catch(error => console.error(error.response.data));
+
+                // book publisher
+                publishers.forEach(publisher => {
+                    var publishervar = {
+                        publisher_id: publisher.publisher_id,
+                        book_id: bookId // hard coded temporarily
+                    };
+                    axios.post('http://localhost:5000/bookPublishers', publishervar)
+                    .then((resp) => {
+                        console.log(resp);
+                    }).catch(error => console.error(error.response.data));
+                });
+
+                // book subject
+                var subjectvar = {
+                    subject_id: genre,
+                    book_id: bookId
+                };
+                axios.post('http://localhost:5000/bookSubjects', subjectvar)
+                .then((resp) => {
+                    console.log(resp);
+                }).catch(error => console.error(error.response.data));
             }).catch(error => console.error(error.response.data));
 
         }
