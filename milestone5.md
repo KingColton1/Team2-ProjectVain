@@ -153,7 +153,7 @@ async function getObject(sql,array) {
 ```
 
 ## Entity Relationship Diagram
-![milestone 3 entity relationship diagram](/milestone3_erd.PNG "milestone 3 erd")
+![milestone 5 entity relationship diagram](/milestone5_erd.PNG "milestone 3 erd")
 
 ## Timeline
 - [x] 9/10/21: Milestone 1 (Requirements)
