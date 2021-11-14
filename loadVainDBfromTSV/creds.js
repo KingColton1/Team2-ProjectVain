@@ -1,5 +1,5 @@
-let userid = 'student';
-let password = 'student';
+let userid = 'postgres';
+let password = 'Nabdem124';
 
 
 const credentialsMain = {

@@ -1,5 +1,6 @@
 <template>
     <div class="addBook-view">
+        <a href="/search">Go to Search </a>
         <h2>Add a New Book</h2>
         <form class="ui-form"> 
             <FormTextField placeholderText="Title" ref="title" />

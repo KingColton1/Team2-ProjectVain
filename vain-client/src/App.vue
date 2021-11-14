@@ -1,6 +1,7 @@
 <template>
  <div class="container p-5">
  <h1 class="text-center border-bottom pb-3 mb-3">Vain Database Data as Tables</h1>
+ <a href="/search">Go to Search </a>
  <AddBookForm />
  <!-- genre table collapse section -->
   <!-- <table class="table table-hover table-bordered mt-5">
