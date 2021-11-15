@@ -4,7 +4,7 @@
  <a href="/search">Go to Search </a>
  <AddBookForm />
  <!-- genre table collapse section -->
-  <!-- <table class="table table-hover table-bordered mt-5">
+  <table class="table table-hover table-bordered mt-5">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -19,9 +19,9 @@
       </tr>
 
     </tbody>
-  </table> -->
+  </table>
 
-  <!-- <table class="table table-hover table-bordered mt-5">
+  <table class="table table-hover table-bordered mt-5">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -36,7 +36,7 @@
       </tr>
     
     </tbody>
-  </table> -->
+  </table>
   <table class="table table-hover table-bordered mt-5">
     <thead>
       <tr>
@@ -73,7 +73,7 @@
     
     </tbody>
   </table>
-  <!-- <table class="table table-hover table-bordered mt-5">
+  <table class="table table-hover table-bordered mt-5">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -124,7 +124,7 @@
       </tr>
     
     </tbody>
-  </table> -->
+  </table>
   </div>
 </template>
 <script>
@@ -132,7 +132,7 @@
 //importing bootstrap 5 and axios
 import "bootstrap/dist/css/bootstrap.min.css";
 import AddBookForm from './views/AddBookForm.vue';
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   views: {
     AddBookForm,
@@ -148,47 +148,47 @@ export default {
     }
   },
   mounted() {
-    //api caling
-    // axios
-    //   .get('http://localhost:5000/genres')
-    //   .then((resp) => {
-    //     console.log(resp);
-    //     this.genres = resp.data;
-    //   });
+    // api caling
+    axios
+      .get('http://localhost:5000/genres')
+      .then((resp) => {
+        console.log(resp);
+        this.genres = resp.data;
+      });
 
-    // axios
-    //   .get('http://localhost:5000/authors')
-    //   .then((resp) => {
-    //     console.log(resp);
-    //     this.authors = resp.data;
-    //   });
+    axios
+      .get('http://localhost:5000/authors')
+      .then((resp) => {
+        console.log(resp);
+        this.authors = resp.data;
+      });
 
-    // axios
-    //   .get('http://localhost:5000/books')
-    //   .then((resp) => {
-    //     this.books = resp.data;
-    //   });
+    axios
+      .get('http://localhost:5000/books')
+      .then((resp) => {
+        this.books = resp.data;
+      });
 
-    // axios
-    //   .get('http://localhost:5000/types')
-    //   .then((resp) => {
-    //     console.log(resp);
-    //     this.types = resp.data;
-    //   });
+    axios
+      .get('http://localhost:5000/types')
+      .then((resp) => {
+        console.log(resp);
+        this.types = resp.data;
+      });
     
-    // axios
-    //   .get('http://localhost:5000/users')
-    //   .then((resp) => {
-    //     console.log(resp);
-    //     this.users = resp.data;
-    //   });
+    axios
+      .get('http://localhost:5000/users')
+      .then((resp) => {
+        console.log(resp);
+        this.users = resp.data;
+      });
 
-    // axios
-    //   .get('http://localhost:5000/publishers')
-    //   .then((resp) => {
-    //     console.log(resp);
-    //     this.publishers = resp.data;
-    //   });
+    axios
+      .get('http://localhost:5000/publishers')
+      .then((resp) => {
+        console.log(resp);
+        this.publishers = resp.data;
+      });
   },
 }
 </script>

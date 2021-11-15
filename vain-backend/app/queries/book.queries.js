@@ -47,6 +47,13 @@ const getBooksByYearRange = (req, res) => {
 
 }
 
+// Trying to figure out how to dynamically create SQL for the filters
+const getFilteredBooks = (req, res) => {
+    // Before making the query, need to loop through the request to see what filters are being used
+
+    // pool.query('SELECT * FROM book')
+}
+
 module.exports = {
     getAllBooks,
     getBookById,

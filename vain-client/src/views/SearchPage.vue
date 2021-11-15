@@ -4,22 +4,35 @@
       <h2>VAIN</h2>
       <p>Login</p>
     </div>
-    <div id="filterList">
-      <form action="" method="get">
-        <h4>Type</h4>
-          <SearchCheckBox filterName="Type" />
-        <h4>Genre</h4>
-      </form>
+    <div id="container">
+      <div id="filterList">
+        <form action="" method="get">
+          <SearchCheckBox filterName="Type" ref="type" />
+          <SearchCheckBox filterName="Genre" ref="genre" />
+          <input type="button" value="Apply Filters" @click="applyFilters" />
+        </form>
+      </div>
+      <div id="results">
+        <p>Books will go here</p>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import SearchCheckBox from '../components/SearchCheckBox.vue';
+import SearchCheckBox from "../components/SearchCheckBox.vue";
 export default {
   components: {
-    SearchCheckBox
-  }
-}
+    SearchCheckBox,
+  },
+  methods: {
+    applyFilters() {
+      // Need to grab all of the data from the filter sections and put them into seperate arrays
+      const typesArray = this.$refs.type.checkedType;
+
+      console.log("types array ->> " + typesArray);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -48,6 +61,11 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: right;
+}
+
+#container {
+  background-color: grey;
+  display: flex;
 }
 </style>
 
