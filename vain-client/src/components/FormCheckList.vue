@@ -25,6 +25,26 @@
             </div>
         </div>
     </div>
+    <div class="field" v-else-if="listType === 'type'">
+        <h3>{{headerText}}</h3>
+        <p>{{checkedTypes}}</p>
+        <div class="list">
+            <div class="item" v-for="type in types" :key="type.type_id" >
+                <input type="checkbox" v-model="checkedTypes" :name="type.type" :value="type"/>
+                <label :for="type.type">{{type.type}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="field" v-else-if="listType === 'subject'">
+        <h3>{{headerText}}</h3>
+        <p>{{checkedSubjects}}</p>
+        <div class="list">
+            <div class="item" v-for="subject in subjects" :key="subject.subject_id" >
+                <input type="checkbox" v-model="checkedSubjects" :name="subject.subject" :value="subject"/>
+                <label :for="subject.subject">{{subject.subject}}</label>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
 import axios from 'axios';
@@ -46,7 +66,11 @@ export default {
             publishers: [],
             checkedPublishers: [],
             inputAuthor: '',
-            inputPublisher: ''
+            inputPublisher: '',
+            checkedTypes: [],
+            types: [],
+            subjects: [],
+            checkedSubjects: [],
         };
     },
     methods: {
@@ -67,6 +91,12 @@ export default {
         });
         axios.get('http://localhost:5000/publishers').then((resp) => {
             this.publishers = resp.data;
+        });
+        axios.get('http://localhost:5000/types').then((resp) => {
+            this.types = resp.data;
+        });
+        axios.get('http://localhost:5000/subjects').then((resp) => {
+            this.subjects = resp.data;
         });
     }
 };

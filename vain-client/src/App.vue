@@ -1,7 +1,8 @@
 <template>
  <div class="container p-5">
  <!-- <AddBookForm /> -->
- <Reports />
+ <a href="/search">Go to Search </a>
+ <AddBookForm />
  <!-- genre table collapse section -->
   <!-- <table class="table table-hover table-bordered mt-5">
     <thead>
