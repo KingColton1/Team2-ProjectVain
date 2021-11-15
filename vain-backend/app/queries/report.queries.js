@@ -9,10 +9,28 @@ const getBooksGroupByYear = (req, res) => {
     .catch(e => console.error(e.stack));
 }
 
+const getBooksGroupByType = (req, res) => {
+    pool.query(`SELECT COUNT(*), type FROM type_book INNER JOIN book on (type_book.book_id = book.book_id) INNER JOIN type on (type_book.type_id = type.type_id)  GROUP BY type`)
+    .then(booksData => {
+        res.send(booksData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
+const getBooksGroupBySubject = (req, res) => {
+    pool.query(`SELECT COUNT(*), subject.subject FROM subject_book INNER JOIN book on (subject_book.book_id = book.book_id) INNER JOIN subject on (subject_book.subject_id = subject.subject_id) GROUP BY subject`)
+    .then(booksData => {
+        res.send(booksData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
 // other report ideas:
 // publisher counts
-// type counts?? subject
+// subject counts
 
 module.exports = {
-    getBooksGroupByYear
+    getBooksGroupByYear,
+    getBooksGroupByType,
+    getBooksGroupBySubject
 }

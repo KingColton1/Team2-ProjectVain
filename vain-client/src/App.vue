@@ -1,7 +1,7 @@
 <template>
  <div class="container p-5">
- <h1 class="text-center border-bottom pb-3 mb-3">Vain Database Data as Tables</h1>
- <AddBookForm />
+ <!-- <AddBookForm /> -->
+ <Reports />
  <!-- genre table collapse section -->
   <!-- <table class="table table-hover table-bordered mt-5">
     <thead>
@@ -36,7 +36,7 @@
     
     </tbody>
   </table> -->
-  <table class="table table-hover table-bordered mt-5">
+  <!-- <table class="table table-hover table-bordered mt-5">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -71,7 +71,8 @@
       </tr>
     
     </tbody>
-  </table>
+  </table> -->
+  
   <!-- <table class="table table-hover table-bordered mt-5">
     <thead>
       <tr>
@@ -131,10 +132,12 @@
 //importing bootstrap 5 and axios
 import "bootstrap/dist/css/bootstrap.min.css";
 import AddBookForm from './views/AddBookForm.vue';
-// import axios from 'axios'
+import Reports from './views/Reports.vue';
+import axios from 'axios'
 export default {
   views: {
     AddBookForm,
+    Reports
   },
   data() {
     return {
@@ -162,11 +165,11 @@ export default {
     //     this.authors = resp.data;
     //   });
 
-    // axios
-    //   .get('http://localhost:5000/books')
-    //   .then((resp) => {
-    //     this.books = resp.data;
-    //   });
+    axios
+      .get('http://localhost:5000/books')
+      .then((resp) => {
+        this.books = resp.data;
+      });
 
     // axios
     //   .get('http://localhost:5000/types')

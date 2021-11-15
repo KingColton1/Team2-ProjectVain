@@ -48,8 +48,14 @@ export default {
     },
     data() {
         return {
-            authorship: ''
+            authorship: '',
+            bookTypeCount: []
         }
+    },
+    mounted() {
+        axios.get('http://localhost:5000/reports/type').then((resp) => {
+            this.bookTypeCount = resp.data;
+        });
     },
     methods: {
         addBook() {
