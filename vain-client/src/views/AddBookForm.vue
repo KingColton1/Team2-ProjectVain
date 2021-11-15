@@ -1,6 +1,7 @@
 <template>
     <div class="addBook-view">
         <a href="/search">Go to Search </a>
+        <a href="/reports">Go to Reports </a>
         <h2>Add a New Book</h2>
         <form class="ui-form"> 
             <FormTextField placeholderText="Title" ref="title" />
@@ -26,9 +27,9 @@
             <br />
             <FormCheckList headerText="Select Publisher(s)" listType="publisher" ref="publishers" />
             <br />
-            <FormSelect headerText="Select Genre" valueType="genre" ref="genre" />
+            <FormCheckList headerText="Select Subject(s)" listType="subject" ref="subjects" />
             <br />
-            <FormSelect headerText="Select Type" valueType="type" ref="type" />
+            <FormCheckList headerText="Select Type(s)" listType="type" ref="types" />
             <br />
             <button type="button" @click="addBook">Add Book</button>
         </form>
@@ -38,19 +39,23 @@
 import FormTextField from '../components/FormTextField.vue';
 import FormTextArea from '../components/FormTextArea.vue';
 import FormCheckList from '../components/FormCheckList.vue';
-import FormSelect from '../components/FormSelect.vue';
 import axios from 'axios';
 export default {
     components: {
         FormTextField,
         FormTextArea,
-        FormCheckList,
-        FormSelect
+        FormCheckList
     },
     data() {
         return {
-            authorship: ''
+            authorship: '',
+            bookTypeCount: []
         }
+    },
+    mounted() {
+        axios.get('http://localhost:5000/reports/type').then((resp) => {
+            this.bookTypeCount = resp.data;
+        });
     },
     methods: {
         addBook() {
@@ -61,8 +66,8 @@ export default {
             const notes = this.$refs.notes.message;
             const authors = this.$refs.authors.checkedAuthors;
             const publishers = this.$refs.publishers.checkedPublishers;
-            const genre = this.$refs.genre.selected;
-            const type = this.$refs.type.selected;
+            const subject = this.$refs.subjects.checkedSubjects;
+            const type = this.$refs.types.checkedTypes;
             const authorship = this.authorship;
             const named = this.$refs.named.message;
             const located = this.$refs.located.text;
@@ -104,15 +109,17 @@ export default {
                     }).catch(error => console.error(error.response.data));
                 });
 
-                // book type
-                var typevar = {
-                    type_id: type,
-                    book_id: bookId
-                };
-                axios.post('http://localhost:5000/bookTypes', typevar)
-                .then((resp) => {
-                    console.log(resp);
-                }).catch(error => console.error(error.response.data));
+                // book types
+                type.forEach(t => {
+                    var typevar = {
+                        type_id: t.type_id,
+                        book_id: bookId
+                    };
+                    axios.post('http://localhost:5000/bookTypes', typevar)
+                    .then((resp) => {
+                        console.log(resp);
+                    }).catch(error => console.error(error.response.data));
+                });
 
                 // book publisher
                 publishers.forEach(publisher => {
@@ -127,14 +134,16 @@ export default {
                 });
 
                 // book subject
-                var subjectvar = {
-                    subject_id: genre,
-                    book_id: bookId
-                };
-                axios.post('http://localhost:5000/bookSubjects', subjectvar)
-                .then((resp) => {
-                    console.log(resp);
-                }).catch(error => console.error(error.response.data));
+                subject.forEach(s => {
+                    var subjectvar = {
+                        subject_id: s.subject_id,
+                        book_id: bookId
+                    };
+                    axios.post('http://localhost:5000/bookSubjects', subjectvar)
+                    .then((resp) => {
+                        console.log(resp);
+                    }).catch(error => console.error(error.response.data));
+                });
             }).catch(error => console.error(error.response.data));
 
         }

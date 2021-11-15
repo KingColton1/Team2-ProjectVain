@@ -1,4 +1,3 @@
-
 DROP DATABASE IF EXISTS "vain_db";
 CREATE DATABASE "vain_db";
 \c vain_db;

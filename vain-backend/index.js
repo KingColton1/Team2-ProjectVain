@@ -111,6 +111,8 @@ app.get('/bookSubjects/subject/:subject', bookSubjects.getAllBooksWithSubject);
 
 // queries for reports
 app.get('/reports/year', reports.getBooksGroupByYear);
+app.get('/reports/type', reports.getBooksGroupByType);
+app.get('/reports/subject', reports.getBooksGroupBySubject);
 
 app.listen(port, () => {
     console.log(`vain backend app is running on port ${port}`);

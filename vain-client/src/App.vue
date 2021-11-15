@@ -1,6 +1,6 @@
 <template>
  <div class="container p-5">
- <h1 class="text-center border-bottom pb-3 mb-3">Vain Database Data as Tables</h1>
+ <!-- <AddBookForm /> -->
  <a href="/search">Go to Search </a>
  <AddBookForm />
  <!-- genre table collapse section -->
@@ -136,6 +136,7 @@ import axios from 'axios'
 export default {
   views: {
     AddBookForm,
+    Reports
   },
   data() {
     return {

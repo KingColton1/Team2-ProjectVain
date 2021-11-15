@@ -12,6 +12,7 @@
         />
         <label :for="type.type">{{ type.type }}</label>
       </div>
+
     </div>
     <div class="list" v-else-if="filterName == 'Genre'">
       <div class="item" v-for="subject in genres" :key="subject.subject_id">
