@@ -31,6 +31,5 @@ const simpleRouter = {
         return h(this.CurrentComponent)
     }
 }
-app.component('AddBookForm', AddBookForm)
-// app.component('SearchPage', SearchPage)
 
+createApp(simpleRouter).mount('#app')

@@ -135,8 +135,7 @@ import AddBookForm from './views/AddBookForm.vue';
 import axios from 'axios'
 export default {
   views: {
-    AddBookForm,
-    Reports
+    AddBookForm
   },
   data() {
     return {
