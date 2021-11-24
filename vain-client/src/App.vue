@@ -130,7 +130,7 @@
 <script>
 
 //importing bootstrap 5 and axios
-import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css";
 import AddBookForm from './views/AddBookForm.vue';
 import axios from 'axios'
 export default {
