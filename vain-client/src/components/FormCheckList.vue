@@ -1,6 +1,6 @@
 <template>
     <div class="field" v-if="listType === 'author'">
-        <h3>{{headerText}}</h3>
+        <label class='inputLabel'>{{this.$props.headerText}}: </label>
         <p>{{checkedAuthors}}</p> <!-- use this info to display the selected ones below the search area -->
         <div class="search">
             <input type="text" placeholder="Search..." v-model.trim="inputAuthor" />
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="field" v-else-if="listType === 'publisher'">
-        <h3>{{headerText}}</h3>
+        <label class='inputLabel'>{{this.$props.headerText}}: </label>
         <p>{{checkedPublishers}}</p>
         <div class="search">
             <input type="text" placeholder="Search..." v-model.trim="inputPublisher" />
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="field" v-else-if="listType === 'type'">
-        <h3>{{headerText}}</h3>
+        <label class='inputLabel'>{{this.$props.headerText}}: </label>
         <p>{{checkedTypes}}</p>
         <div class="list">
             <div class="item" v-for="type in types" :key="type.type_id" >
@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="field" v-else-if="listType === 'subject'">
-        <h3>{{headerText}}</h3>
+        <label class='inputLabel'>{{this.$props.headerText}}: </label>
         <p>{{checkedSubjects}}</p>
         <div class="list">
             <div class="item" v-for="subject in subjects" :key="subject.subject_id" >
@@ -101,3 +101,21 @@ export default {
     }
 };
 </script>
+<style scoped>
+.list {
+    max-height: 300px;
+    overflow: scroll;
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 5px;
+}
+.item label {
+    padding-left: 10px;
+}
+.item input:hover {
+    cursor: pointer;
+}
+.search {
+    padding-bottom: 10px;
+}
+</style>

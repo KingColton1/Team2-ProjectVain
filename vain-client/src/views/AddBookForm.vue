@@ -2,36 +2,25 @@
     <div class="addBook-view">
         <a href="/search">Go to Search </a>
         <a href="/reports">Go to Reports </a>
-        <h2>Add a New Book</h2>
+        <h1 class='formTitle'>Add a New Book</h1>
         <form class="ui-form"> 
             <FormTextField placeholderText="Title" ref="title" />
-            <br />
             <FormTextField placeholderText="Year" ref="year" />
-            <br />
             <FormTextField placeholderText="Located" ref="located" />
-            <br />
             <FormTextArea placeholderText="Description" ref="description" />
-            <br />
             <FormTextArea placeholderText="Notes" ref="notes" />
-            <br />
             <FormTextArea placeholderText="Named Persons" ref="named" />
-            <br />
             <div class="authorship">
-                <h3>Self Authored?</h3>
+                <label class='inputLabel'>Self Authored?</label><br />
                 <input type="radio" name="authorship" value="Y" v-model="authorship" /> Yes <br />
                 <input type="radio" name="authorship" value="N" v-model="authorship" /> No <br />
                 <input type="radio" name="authorship" value="U" v-model="authorship" /> Unknown <br />
-            </div>
-            <br />
-            <FormCheckList headerText="Select Author(s)" listType="author" ref="authors" />
-            <br />
-            <FormCheckList headerText="Select Publisher(s)" listType="publisher" ref="publishers" />
-            <br />
-            <FormCheckList headerText="Select Subject(s)" listType="subject" ref="subjects" />
-            <br />
+            </div><br />
+            <FormCheckList headerText="Select Author(s)" listType="author" ref="authors" /><br />
+            <FormCheckList headerText="Select Publisher(s)" listType="publisher" ref="publishers" /><br />
+            <FormCheckList headerText="Select Subject(s)" listType="subject" ref="subjects" /><br />
             <FormCheckList headerText="Select Type(s)" listType="type" ref="types" />
-            <br />
-            <button type="button" @click="addBook">Add Book</button>
+            <button id='addBookButton' type="button" @click="addBook">Add Book</button><br />
         </form>
     </div>
 </template>
@@ -72,7 +61,18 @@ export default {
             const named = this.$refs.named.message;
             const located = this.$refs.located.text;
 
-            // validate (skipping for now)
+            // validate
+            // decide on required fields, then verify those are filled in with something
+            if (title === '' || year === '' || title === ' ') {
+                console.log('stuff is blank my dude');
+                return;
+            }
+
+            // making sure the year is actually numbers otherwise we get an exception lol
+            if (typeof year != Number) {
+                console.log('year must be a number');
+                return;
+            }
 
             // add to an array
             var bookvar =  {
@@ -150,14 +150,43 @@ export default {
     }
 };
 </script>
-<style scoped>
-.addBook-view {
+<style>
+form {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    outline: 1px solid black;
+    border-radius: 5px;
+}
+.field {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 80%;
 }
-.form {
-    width: 600px;
+.field:hover .inputLabel {
+    color: darkorchid;
+}
+.inputLabel {
+    font-weight: bold;
+    font-size: large;
+    transition: 0.2s all;
+}
+#addBookButton {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transition: 0.2s all;
+    border: 1px solid;
+    padding: 5px;
+}
+#addBookButton:hover {
+    color: darkorchid;
+}
+.formTitle {
+    margin-left: 5%;
+    padding: 10px;
+    padding-left: 0;
 }
 </style>

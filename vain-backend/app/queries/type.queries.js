@@ -18,10 +18,9 @@ const getTypeById = (req, res) => {
 }
 
 const addNewType = (req, res) => {
-    // specify json for body values
     const { id, type } = req.body;
-    pool.query('INSERT INTO type (type_id, type) VALUES ($1, $2)', [id, type])
-    .then(typeData => {
+    pool.query('INSERT INTO type (type_id, type) VALUES ($1, $2) RETURNING type_id', [id, type])
+    .then(() => {
         res.send(`New type added with type_id: ${id}`);
     })
     .catch(e => console.error(e));

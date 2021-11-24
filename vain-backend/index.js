@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
+const { body, param } = require('express-validator');
+
 const app = express();
+
 app.use(function (err, req, res, next) {
     console.error(err.stack)
     res.status(500).send('Something is wrong!')
@@ -30,83 +33,165 @@ app.get('/login', (req, res) => {res.send("login page")});
 
 // users paths
 app.get('/users', users.getAllUsers);
-app.get('/users/user/:id', users.getUserById);
-app.post('/users', users.addNewUser);
-app.put('/users/user/:id', users.updateUserById);
-app.delete('/users/user/:id', users.deleteUser);
+app.get('/users/:id', users.getUserById);
+app.post('/users',
+  body('id').not().isEmpty().trim().escape(),
+  body('fname').not().isEmpty().trim().escape(),
+  body('lname').not().isEmpty().trim().escape(),
+  body('email').isEmail().normalizeEmail(),
+  users.addNewUser
+);
+app.put('/users/:id',
+  param('id'),
+  body('fname').not().isEmpty().trim().escape(),
+  body('lname').not().isEmpty().trim().escape(),
+  body('email').isEmail().normalizeEmail(),
+  users.updateUserById
+);
+app.delete('/users/:id', users.deleteUser);
 
 
 // roles paths
 app.get('/roles', roles.getAllRoles);
-app.get('/roles/role/:id', roles.getRoleById);
-app.post('/roles', roles.addNewRole);
-app.put('/roles/role/:id', roles.updateRoleByid);
-app.delete('/roles/role/:id', roles.deleteRole);
+app.get('/roles/:id', roles.getRoleById);
+app.post('/roles',
+  body('id').not().isEmpty().trim().escape(),
+  body('role').not().isEmpty().trim().escape(),
+  roles.addNewRole
+);
+app.put('/roles/:id',
+  param('id').not().isEmpty().trim().escape(),
+  body('role').not().isEmpty().trim().escape(),
+  roles.updateRoleByid
+);
+app.delete('/roles/:id', roles.deleteRole);
 
 
-// genres paths
+// subjects paths
 app.get('/subjects', subjects.getAllSubjects);
-app.get('/subjects/subject/:id', subjects.getSubjectById);
-app.post('/subjects', subjects.addNewSubject);
-app.put('/subjects/subject/:id', subjects.updateSubjectById);
-app.delete('/subjects/subject/:id', subjects.deleteSubject);
+app.get('/subjects/:id', subjects.getSubjectById);
+app.post('/subjects',
+  body('id').not().isEmpty().trim().escape(),
+  body('subject').not().isEmpty().trim().escape(),
+  subjects.addNewSubject
+);
+app.put('/subjects/:id',
+  param('id').not().isEmpty().trim().escape(),
+  body('subject').not().isEmpty().trim().escape(),
+  subjects.updateSubjectById
+);
+app.delete('/subjects/:id', subjects.deleteSubject);
 
 
 // publishers paths
 app.get('/publishers', publishers.getAllPublishers);
-app.get('/publishers/publisher/:id', publishers.getPublisherById);
-app.post('/publishers', publishers.addNewPublisher);
-app.put('/publishers/publisher/:id', publishers.updatePublisherById);
-app.delete('/publishers/publisher/:id', publishers.deletePublisher);
+app.get('/publishers/:id', publishers.getPublisherById);
+app.post('/publishers',
+  body('location').not().isEmpty().trim().escape(),
+  body('publisher').not().isEmpty().trim().escape(),
+  publishers.addNewPublisher
+);
+app.put('/publishers/:id',
+  param('id').not().isEmpty().trim().escape(),
+  body('location').not().isEmpty().trim().escape(),
+  body('publisher').not().isEmpty().trim().escape(),
+  publishers.updatePublisherById
+);
+app.delete('/publishers/:id', publishers.deletePublisher);
 
 
 // namedpersons paths
 app.get('/namedpersons', namedPersons.getAllNamedPersons);
-app.get('/namedpersons/person/:id', namedPersons.getNamedPersonByAuthorId);
-app.post('/namedpersons', namedPersons.addNewNamedPerson);
-app.put('/namedpersons/person/:id', namedPersons.updateNamedPersonByAuthorId);
-app.delete('/namedpersons/person/:id', namedPersons.deleteNamedPerson);
+app.get('/namedpersons/:id', namedPersons.getNamedPersonByAuthorId);
+app.post('/namedpersons',
+  body('id').not().isEmpty().trim().escape(),
+  body('name').not().isEmpty().trim().escape(),
+  body('lifeyears').not().isEmpty().trim().escape(),
+  namedPersons.addNewNamedPerson
+);
+app.put('/namedpersons/:id',
+  param('id').not().isEmpty().trim().escape(),
+  body('name').not().isEmpty().trim().escape(),
+  body('lifeyears').not().isEmpty().trim().escape(),
+  namedPersons.updateNamedPersonByAuthorId
+);
+app.delete('/namedpersons/:id', namedPersons.deleteNamedPerson);
 
 
 // types paths
 app.get('/types', types.getAllTypes);
-app.get('/types/type/:id', types.getTypeById);
-app.post('/types', types.addNewType);
-app.put('/types/type/:id', types.updateTypeById);
-app.delete('/types/type/:id', types.deleteType);
+app.get('/types/:id', types.getTypeById);
+app.post('/types',
+  body('id').not().isEmpty().trim().escape(),
+  body('type').not().isEmpty().trim().escape(),
+  types.addNewType
+);
+app.put('/types/:id',
+  param('id').not().isEmpty().trim().escape(),
+  body('type').not().isEmpty().trim().escape(),
+  types.updateTypeById
+);
+app.delete('/types/:id', types.deleteType);
 
 
 // books paths
 app.get('/books', books.getAllBooks);
 app.get('/books/book/:id', books.getBookById);
 app.get('/books/years/:year', books.getBooksByYear);
-app.post('/books', books.addNewBook);
+app.post('/books',
+  body('authorship').not().isEmpty().trim().escape(),
+  body('title').not().isEmpty().trim().escape(),
+  body('year').isInt().custom(value => { if (value <= 0 || value > 9999) { return false; } return true; }),
+  body('description').not().isEmpty().trim().escape(),
+  body('namedpersons').not().isEmpty().trim().escape(),
+  body('notes').not().isEmpty().trim().escape(),
+  body('located').not().isEmpty().trim().escape(),
+  body('modifiedby').not().isEmpty().trim().escape(),
+  body('lastupdated').not().isEmpty().trim().escape(),
+  books.addNewBook
+);
 // put
 app.delete('/books/book/:id', books.deleteBook);
 
 
 // book authors paths
 app.get('/bookAuthors', bookAuthors.getAllBookAuthors);
-app.post('/bookAuthors', bookAuthors.addNewBookAuthors);
-app.get('/bookAuthors/author/:author', bookAuthors.getAllBooksWithAuthor);
+app.post('/bookAuthors',
+  body('book_id').not().isEmpty().trim().escape(),
+  body('author_id').not().isEmpty().trim().escape(),
+  bookAuthors.addNewBookAuthors
+);
+app.get('/bookAuthors/book/:author', bookAuthors.getAllBooksWithAuthor);
 
 
 // book publishers paths
 app.get('/bookPublishers', bookPublishers.getAllBookPublishers);
-app.post('/bookPublishers', bookPublishers.addNewBookPublishers);
-app.get('/bookPublishers/publisher/:publisher', bookPublishers.getAllBooksWithPublisher);
+app.post('/bookPublishers',
+  body('book_id').not().isEmpty().trim().escape(),
+  body('publisher_id').not().isEmpty().trim().escape(),
+  bookPublishers.addNewBookPublishers
+);
+app.get('/bookPublishers/book/:publisher', bookPublishers.getAllBooksWithPublisher);
 
 
 // book types paths
 app.get('/bookTypes', bookTypes.getAllBookTypes);
-app.post('/bookTypes', bookTypes.addNewBookType);
-app.get('/bookTypes/type/:type', bookTypes.getAllBooksWithType);
+app.post('/bookTypes',
+  body('book_id').not().isEmpty().trim().escape(),
+  body('type_id').not().isEmpty().trim().escape(),
+  bookTypes.addNewBookType
+);
+app.get('/bookTypes/book/:type', bookTypes.getAllBooksWithType);
 
 
 // book subjects paths
 app.get('/bookSubjects', bookSubjects.getAllBookSubjects);
-app.post('/bookSubjects', bookSubjects.addNewBookSubject);
-app.get('/bookSubjects/subject/:subject', bookSubjects.getAllBooksWithSubject);
+app.post('/bookSubjects',
+  body('subject_id').not().isEmpty().trim().escape(),
+  body('book_id').not().isEmpty().trim().escape(),
+  bookSubjects.addNewBookSubject
+);
+app.get('/bookSubjects/book/:subject', bookSubjects.getAllBooksWithSubject);
 
 
 // queries for reports

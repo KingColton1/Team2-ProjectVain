@@ -20,8 +20,7 @@ const getPublisherById = (req, res) => {
 const addNewPublisher = (req, res) => {
     // specify json for body values
     const { publisher, location } = req.body;
-    const full = `${location}: ${publisher}`;
-    pool.query('INSERT INTO publisher (publisher, publisherLocation, publisherFull) VALUES ($1, $2, $3)', [publisher, location, full])
+    pool.query('INSERT INTO publisher (publisher, publisherLocation) VALUES ($1, $2)', [publisher, location])
     .then(publisherData => {
         res.send(publisherData.rows);
     })
@@ -30,8 +29,7 @@ const addNewPublisher = (req, res) => {
 
 const updatePublisherById = (req, res) => {
     const { publisher, location } = req.body;
-    const full = `${location}: ${publisher}`;
-    pool.query('UPDATE publisher SET publisher = $1, publisherLocation = $2, publisherFull = $3 WHERE publisher_id = $4', [publisher, location, full, req.params.id])
+    pool.query('UPDATE publisher SET publisher = $1, publisherLocation = $2 WHERE publisher_id = $3', [publisher, location, req.params.id])
     .then(() => {
         res.send(`Publisher updated with publisher_id: ${req.params.id}`);
     })

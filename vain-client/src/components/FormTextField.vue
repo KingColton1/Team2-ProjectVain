@@ -1,16 +1,13 @@
 <template>
     <div class="field">
-        <input type="text" v-model="text" :placeholder=placeholderText />
+        <label class='inputLabel'>{{this.$props.placeholderText}}: </label>
+        <input class="fieldInput" type="text" v-model="text" :placeholder=placeholderText />
         <p>{{text}}</p>
     </div>
 </template>
 <script>
 export default {
     props: {
-        labelText: {
-            type: String,
-            required: false
-        },
         placeholderText: {
             type: String,
             required: true
@@ -23,3 +20,10 @@ export default {
     },
 };
 </script>
+<style scoped>
+.field {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+</style>
