@@ -69,8 +69,8 @@ export default {
             }
 
             // making sure the year is actually numbers otherwise we get an exception lol
-            if (typeof year != Number) {
-                console.log('year must be a number');
+            if (year > 2021 || year < 1) {
+                console.log('year must be a number and between 2021 and 0');
                 return;
             }
 
