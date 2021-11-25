@@ -3,17 +3,20 @@ import App from './App.vue'
 import AddBookForm from './views/AddBookForm'
 import Reports from './views/Reports'
 import SearchPage from './views/SearchPage'
+import Testing from './views/Testing'
 
 const app = createApp(App)
 
 app.component('AddBookForm', AddBookForm)
 app.component('Reports', Reports)
 app.component('SearchPage', SearchPage)
+app.component('Testing', Testing)
 
 const routes = {
     '/': AddBookForm,
     '/search': SearchPage,
-    '/reports': Reports
+    '/reports': Reports,
+    '/unit_test': Testing
 }
 
 const simpleRouter = {
