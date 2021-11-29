@@ -6,6 +6,7 @@ CREATE TABLE public.user (
   fName varchar(45) NOT NULL,
   lName varchar(45) NOT NULL,
   email varchar(45) NOT NULL,
+  password varchar(200) NOT NULL,
   role int NOT NULL,
   PRIMARY KEY (user_id)) ;
 
