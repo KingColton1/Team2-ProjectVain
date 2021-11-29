@@ -15,10 +15,10 @@ DROP TABLE IF EXISTS public.role;
 
 CREATE TABLE public.role (
   role_id SERIAL NOT NULL,
-  role varchar(10) NOT NULL,
+  role varchar(20) NOT NULL,
   PRIMARY KEY (role_id)
 );
--- INSERT INTO public.role(role) VALUES ('Admin'),('Editor'),('Searcher');
+ INSERT INTO public.role(role) VALUES ('Administrator'),('Contributor'),('User'),('Guest');
 
 DROP TABLE IF EXISTS public.subject;
 
