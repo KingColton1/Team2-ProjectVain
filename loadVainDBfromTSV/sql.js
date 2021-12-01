@@ -10,7 +10,7 @@ CREATE TABLE public.user (
   role int NOT NULL,
   PRIMARY KEY (user_id)) ;
 
-INSERT INTO public.user VALUES ('System','System','System','NA', 1);
+INSERT INTO public.user VALUES ('System','System','System','NA','123', 1);
 
 DROP TABLE IF EXISTS public.role;
 
