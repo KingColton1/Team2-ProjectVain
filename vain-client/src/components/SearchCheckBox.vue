@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox">
-    <h3>{{ filterName }}</h3>
+    <h4>{{ filterName }}</h4>
     <div class="list" v-if="filterName == 'Type'">
       <div class="item" v-for="type in types" :key="type.type_id">
         <input

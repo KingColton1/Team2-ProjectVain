@@ -192,3 +192,34 @@ export default {
   },
 }
 </script>
+<style>
+body {
+  padding: 0;
+  margin: 0;
+}
+.navBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(226, 226, 226);
+  border-bottom: 0.5px solid black;
+}
+.navBar > h2 {
+  padding: 2%;
+}
+.links > a {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+}
+.links > a.active {
+  text-decoration: underline;
+}
+.links > a:last-of-type {
+  padding-right: 20px;
+}
+.links > a:hover {
+  color: purple;
+}
+</style>

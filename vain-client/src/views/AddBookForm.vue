@@ -1,7 +1,14 @@
 <template>
+    <div class="navBar">
+        <h2>VAIN</h2>
+        <div class="links">
+            <a href='/'>Home</a>
+            <a href='/login'>Login</a>
+            <a href='/addBook' class="active">Add Book</a>
+            <a href='/reports'>Reports</a>
+        </div>
+    </div>
     <div class="addBook-view">
-        <a href="/search">Go to Search </a>
-        <a href="/reports">Go to Reports </a>
         <h1 class='formTitle'>Add a New Book</h1>
         <form class="ui-form"> 
             <FormTextField placeholderText="Title" ref="title" />
