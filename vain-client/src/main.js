@@ -6,6 +6,7 @@ import SearchPage from './views/SearchPage'
 import Signup from './views/Signup';
 import Login from './views/Login';
 import Home from './views/Home';
+import Testing from './views/Testing'
 
 const app = createApp(App)
 
@@ -14,7 +15,8 @@ app.component('Reports', Reports)
 app.component('SearchPage', SearchPage)
 app.component('Login', Login);
 app.component('Signup', Signup);
-app.component('Home', Home)
+app.component('Home', Home);
+app.component('Testing', Testing);
 
 const routes = {
     '/addBook': AddBookForm,
@@ -22,7 +24,8 @@ const routes = {
     '/reports': Reports,
     '/login': Login,
     '/signup': Signup,
-    '/home': Home
+    '/home': Home,
+    '/unit_test': Testing
 }
 
 const simpleRouter = {

@@ -6,19 +6,20 @@ CREATE TABLE public.user (
   fName varchar(45) NOT NULL,
   lName varchar(45) NOT NULL,
   email varchar(45) NOT NULL,
+  password varchar(200) NOT NULL,
   role int NOT NULL,
   PRIMARY KEY (user_id)) ;
 
-INSERT INTO public.user VALUES ('System','System','System','NA', 1);
+INSERT INTO public.user VALUES ('System','System','System','NA','123', 1);
 
 DROP TABLE IF EXISTS public.role;
 
 CREATE TABLE public.role (
   role_id SERIAL NOT NULL,
-  role varchar(10) NOT NULL,
+  role varchar(20) NOT NULL,
   PRIMARY KEY (role_id)
 );
--- INSERT INTO public.role(role) VALUES ('Admin'),('Editor'),('Searcher');
+ INSERT INTO public.role(role) VALUES ('Administrator'),('Contributor'),('User'),('Guest');
 
 DROP TABLE IF EXISTS public.subject;
 
