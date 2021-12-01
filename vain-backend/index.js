@@ -138,6 +138,8 @@ app.delete('/types/:id', types.deleteType);
 app.get('/books', books.getAllBooks);
 app.get('/books/book/:id', books.getBookById);
 app.get('/books/years/:year', books.getBooksByYear);
+app.get('/books/book/type/:type', books.getFilteredTypeBooks);
+app.get('/books/book/genre/:genre', books.getFilteredGenreBooks);
 app.post('/books',
   body('authorship').not().isEmpty().trim().escape(),
   body('title').not().isEmpty().trim().escape(),
