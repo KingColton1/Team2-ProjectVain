@@ -1,5 +1,5 @@
 let userid = 'student';
-let password = 'Nabdem124';
+let password = 'student';
 
 
 const credentialsMain = {
