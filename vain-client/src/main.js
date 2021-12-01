@@ -3,17 +3,26 @@ import App from './App.vue'
 import AddBookForm from './views/AddBookForm'
 import Reports from './views/Reports'
 import SearchPage from './views/SearchPage'
+import Signup from './views/Signup';
+import Login from './views/Login';
+import Home from './views/Home';
 
 const app = createApp(App)
 
 app.component('AddBookForm', AddBookForm)
 app.component('Reports', Reports)
 app.component('SearchPage', SearchPage)
+app.component('Login', Login);
+app.component('Signup', Signup);
+app.component('Home', Home)
 
 const routes = {
-    '/': AddBookForm,
-    '/search': SearchPage,
-    '/reports': Reports
+    '/addBook': AddBookForm,
+    '/': SearchPage,
+    '/reports': Reports,
+    '/login': Login,
+    '/signup': Signup,
+    '/home': Home
 }
 
 const simpleRouter = {

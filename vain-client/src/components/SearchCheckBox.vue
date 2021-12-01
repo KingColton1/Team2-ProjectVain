@@ -7,20 +7,19 @@
           type="checkbox"
           v-model="checkedType"
           name="type.type"
-          :value="type.type_id + '-type'"
-          :ref="type"
+          :value="type.type_id"
         />
         <label :for="type.type">{{ type.type }}</label>
       </div>
 
     </div>
-    <div class="list" v-else-if="filterName == 'Genre'">
-      <div class="item" v-for="subject in genres" :key="subject.subject_id">
+    <div class="list" v-else-if="filterName == 'Subject'">
+      <div class="item" v-for="subject in subjects" :key="subject.subject_id">
         <input
           type="checkbox"
-          v-model="checkedGenre"
+          v-model="checkedSubjects"
           name="subject.subject"
-          :value="subject.subject_id + '-subject'"
+          :value="subject.subject_id"
         />
         <label :for="subject.subject">{{ subject.subject }}</label>
       </div>
@@ -39,9 +38,9 @@ export default {
   data() {
     return {
       types: [],
-      genres: [],
+      subjects: [],
       checkedType: [],
-      checkedGenre: [],
+      checkedSubjects: [],
     };
   },
   methods: {
@@ -49,7 +48,7 @@ export default {
       return type;
     },
     getSelectedTypes() {
-        return this.data.checkedType;
+      return this.data.checkedType;
     }
   },
   mounted() {
@@ -57,7 +56,7 @@ export default {
       this.types = resp.data;
     });
     axios.get("http://localhost:5000/subjects").then((resp) => {
-      this.genres = resp.data;
+      this.subjects = resp.data;
     });
   },
 };

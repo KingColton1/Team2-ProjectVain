@@ -19,8 +19,8 @@ const getUserById = (req, res) => {
 
 const addNewUser = (req, res) => {
     // specify json for body values
-    const { id, fname, lname, email, role } = req.body;
-    pool.query('INSERT INTO "user" (user_id, fname, lname, email, role) VALUES ($1, $2, $3, $4, $5)', [id, fname, lname, email, role])
+    const { id, fname, lname, email, role, password } = req.body;
+    pool.query('INSERT INTO "user" (user_id, fname, lname, email, role, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING user_id', [id, fname, lname, email, role, password])
     .then(userData => {
         res.send(userData.rows);
     })
@@ -44,10 +44,20 @@ const deleteUser = (req, res) => {
     .catch(e => console.error(e.stack));
 }
 
+const attemptLogin = (req, res) => {
+    const { user, password } = req.body;
+    pool.query('SELECT user_id, role FROM "user" WHERE user_id = $1 AND password = $2', [user, password])
+    .then((userData) => {
+        res.send(userData);
+    })
+    .catch(e => console.error(e.stack));
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     addNewUser,
     updateUserById,
     deleteUser,
+    attemptLogin
 }

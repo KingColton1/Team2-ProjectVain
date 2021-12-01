@@ -29,7 +29,7 @@ const bookTypes = require('./app/queries/bookType.queries');
 const reports = require('./app/queries/report.queries');
 
 // login path
-app.get('/login', (req, res) => {res.send("login page")});
+app.get('/login', users.attemptLogin); // add validations in a bit lol
 
 // users paths
 app.get('/users', users.getAllUsers);

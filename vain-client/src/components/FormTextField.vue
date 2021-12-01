@@ -1,8 +1,7 @@
 <template>
     <div class="field">
         <label class='inputLabel'>{{this.$props.placeholderText}}: </label>
-        <input class="fieldInput" type="text" v-model="text" :placeholder=placeholderText />
-        <p>{{text}}</p>
+        <input class="fieldInput" type="text" v-model="text" :placeholder=placeholderText /><br />
     </div>
 </template>
 <script>
