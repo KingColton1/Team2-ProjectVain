@@ -52,6 +52,8 @@ import SearchCheckBox from "../components/SearchCheckBox.vue";
 import axios from 'axios';
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+import lodash from "lodash/uniqWith";
+import isEqual from "lodash/isEqual";
 export default {
   components: {
     SearchCheckBox,
@@ -104,15 +106,15 @@ export default {
           axios
           .get(typeRoute + "/" + typesArray[i].charAt(0))
           .then((resp) => {
-          
+            
             entireFilteredCollection = entireFilteredCollection.concat(resp.data);
-            this.books = entireFilteredCollection;
+            // this.books = entireFilteredCollection;
             // this.books.sort((a,b) => a.book_id - b.book_id);
             // var set = new Set(this.books);
 
             // this.books = set
-            // let temp = lodash(entireFilteredCollection, isEqual);
-            // this.books = temp;
+            let temp = lodash(entireFilteredCollection, isEqual);
+            this.books = temp;
           })
         }
       }
@@ -125,14 +127,14 @@ export default {
             // console.log(resp.data);
             
             entireFilteredCollection = entireFilteredCollection.concat(resp.data);
-            this.books = entireFilteredCollection;
+            // this.books = entireFilteredCollection;
             // this.books.sort((a,b) => a.book_id - b.book_id);
             // var set = new Set(this.books);
 
             // this.books = set
 
-            // let temp = lodash(entireFilteredCollection, isEqual);
-            // this.books = temp;
+            let temp = lodash(entireFilteredCollection, isEqual);
+            this.books = temp;
             
           })
         }
