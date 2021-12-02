@@ -34,6 +34,7 @@
               <h3>{{book.title}}</h3>
               <p><strong>{{book.year}}</strong></p>
               <p>{{book.description}}</p>
+              <p>{{book.book_id}}</p>
           </div>
           <v-pagination
             v-model="page"
@@ -103,10 +104,15 @@ export default {
           axios
           .get(typeRoute + "/" + typesArray[i].charAt(0))
           .then((resp) => {
-            
+          
             entireFilteredCollection = entireFilteredCollection.concat(resp.data);
             this.books = entireFilteredCollection;
             // this.books.sort((a,b) => a.book_id - b.book_id);
+            // var set = new Set(this.books);
+
+            // this.books = set
+            // let temp = lodash(entireFilteredCollection, isEqual);
+            // this.books = temp;
           })
         }
       }
@@ -120,7 +126,13 @@ export default {
             
             entireFilteredCollection = entireFilteredCollection.concat(resp.data);
             this.books = entireFilteredCollection;
-            
+            // this.books.sort((a,b) => a.book_id - b.book_id);
+            // var set = new Set(this.books);
+
+            // this.books = set
+
+            // let temp = lodash(entireFilteredCollection, isEqual);
+            // this.books = temp;
             
           })
         }
@@ -133,10 +145,14 @@ export default {
       }
 
       // this.books = this.sortArray(this.books);
+      
 
       console.log("types array ->> " + typesArray);
       console.log("subjects array ->> " + subjectsArray);
     },
+    removeDups(data){
+      return data.filter((value, index) => data.indexOf(value) === index);
+    }
   },
   mounted() {
     axios.get("http://localhost:5000/books").then((resp) => {

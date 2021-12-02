@@ -27,6 +27,7 @@
     "vuetify": "^2.5.14"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.177",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-unit-jest": "^4.5.15",
