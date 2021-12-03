@@ -8,8 +8,10 @@
         <a href='/reports' class="active">Reports</a>
       </div>
     </div>
-    <BarChart dataset="counttype" charttitle="Number of Books Associated with Each Type" />
-    <BarChart dataset="countsubject" charttitle="Number of Books Associated with Each Subject" />
+    <div class="grid">
+      <div class="grid-item"><BarChart dataset="counttype" charttitle="Number of Books Associated with Each Type" /></div>
+      <div class="grid-item"><BarChart dataset="countsubject" charttitle="Number of Books Associated with Each Subject" /></div>
+    </div>
 </template>
 <script>
 import BarChart from '../components/BarChart.vue';
@@ -19,3 +21,15 @@ export default {
     }
 }
 </script>
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: auto;
+    width: 50%;
+  }
+
+  .grid .grid-item {
+    padding: 5%;
+  }
+</style>
