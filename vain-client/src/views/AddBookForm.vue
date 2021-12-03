@@ -182,14 +182,20 @@ export default {
     transition: 0.2s all;
 }
 #addBookButton {
-    margin-top: 10px;
+    background-color: #333333;
+    color: white;
+    margin-top: 15px;
     margin-bottom: 10px;
-    transition: 0.2s all;
-    border: 1px solid;
-    padding: 5px;
+    padding: 15px;
+    border: none;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: 0.3s;
 }
 #addBookButton:hover {
-    color: darkorchid;
+    background-color: #737373;
 }
 .formTitle {
     text-align: center;
