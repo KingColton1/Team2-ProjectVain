@@ -1,6 +1,6 @@
 <template>
     <div class="navBar">
-        <h2>VAIN</h2>
+        <h1>VAIN</h1>
         <div class="links">
             <a href='/'>Home</a>
             <a href='/login'>Login</a>
@@ -159,7 +159,7 @@ export default {
 </script>
 <style>
 .ui-form {
-    width: 90%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
@@ -192,7 +192,7 @@ export default {
     color: darkorchid;
 }
 .formTitle {
-    margin-left: 5%;
+    text-align: center;
     padding: 10px;
     padding-left: 0;
 }

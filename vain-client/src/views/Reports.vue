@@ -1,6 +1,6 @@
 <template>
     <div class="navBar">
-      <h2>VAIN</h2>
+      <h1>VAIN</h1>
       <div class="links">
         <a href='/'>Home</a>
         <a href='/login'>Login</a>

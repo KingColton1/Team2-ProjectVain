@@ -61,3 +61,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .checkbox h4 {
+    margin-bottom: 5px;
+  }
+</style>
