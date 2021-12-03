@@ -32,8 +32,9 @@ export default {
 
             axios.get('http://localhost:5000/login', loginvar)
             .then(resp => {
-                if (resp.data) {
-                    window.location.href = 'http://localhost:8080/';
+                console.log(resp.data);
+                if (resp.data.fields[0]["user_id"]) {
+                    // window.location.href = 'http://localhost:8080/';
                 }
             })
             .catch(error => console.error(error.response.data));
@@ -46,11 +47,14 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100vh;
+    justify-content: center;
 }
 .login form {
     width: 50%;
     padding: 10px;
     outline: 1px solid black;
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 </style>

@@ -141,7 +141,6 @@ export default {
   mounted() {
     axios.get("http://localhost:5000/books").then((resp) => {
         this.books = resp.data;
-        console.log(this.books.length)
     });
   }
 };

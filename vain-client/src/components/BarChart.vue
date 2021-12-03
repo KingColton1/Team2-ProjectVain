@@ -1,5 +1,5 @@
 <template>
-    <h2>{{this.$props.charttitle}}</h2>
+    <h3>{{this.$props.charttitle}}</h3>
     <div class="histogram" :id="dataset"></div>
 </template>
 <script>
@@ -28,8 +28,8 @@ export default {
     methods: {
         generateTypeCountChart() {
             const margin = {top: 10, right: 30, bottom: 70, left: 40},
-            width = 460 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;
+            width = 360 - margin.left - margin.right,
+            height = 300 - margin.top - margin.bottom;
 
             const svg = d3.select(`#counttype`)
                 .append('svg')
@@ -82,8 +82,8 @@ export default {
         },
         generateSubjectCountChart() {
             const margin = {top: 10, right: 30, bottom: 70, left: 40},
-            width = 460 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;
+            width = 360 - margin.left - margin.right,
+            height = 300 - margin.top - margin.bottom;
 
             const svg = d3.select(`#countsubject`)
                 .append('svg')
@@ -114,7 +114,7 @@ export default {
 
                 // Add Y axis
                 var y = d3.scaleLinear()
-                    .domain([0, 1300])
+                    .domain([0, 1400])
                     .range([ height, 0]);
                 svg.append("g")
                     .call(d3.axisLeft(y));
