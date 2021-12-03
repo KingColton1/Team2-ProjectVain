@@ -202,15 +202,16 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(226, 226, 226);
-  border-bottom: 0.5px solid black;
+  background-color: #333333;
 }
 .navBar > h2 {
-  padding: 2%;
+  padding: 1%;
+  padding-left: 2.5%;
+  color: #FFFFFF;
 }
 .links > a {
   text-decoration: none;
-  color: black;
+  color: #FFFFFF;
   padding: 10px;
 }
 .links > a.active {
@@ -220,6 +221,6 @@ body {
   padding-right: 20px;
 }
 .links > a:hover {
-  color: purple;
+  color: #737373;
 }
 </style>

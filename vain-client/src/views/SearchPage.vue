@@ -169,7 +169,7 @@ export default {
   padding: 10px;
   display: inline-block;
   background-color: rgb(226, 226, 226);
-  border-top: 3px solid black;
+  border-top: 5px solid #737373;
 }
 
 #filterList > form {
@@ -181,7 +181,6 @@ export default {
 }
 
 #container {
-  
   display: flex;
 }
 

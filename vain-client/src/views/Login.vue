@@ -1,4 +1,13 @@
 <template>
+    <div class="navBar">
+        <h2>VAIN</h2>
+        <div class="links">
+            <a href='/'>Home</a>
+            <a href='/login' class="active">Login</a>
+            <a href='/addBook'>Add Book</a>
+            <a href='/reports'>Reports</a>
+        </div>
+    </div>
     <div class="login">
         <h1>Login</h1>
         <form>
