@@ -34,6 +34,7 @@
               <h3>{{book.title}}</h3>
               <p><strong>{{book.year}}</strong></p>
               <p>{{book.description}}</p>
+              <p>{{book.book_id}}</p>
           </div>
           <v-pagination
             v-model="page"
@@ -51,6 +52,8 @@ import SearchCheckBox from "../components/SearchCheckBox.vue";
 import axios from 'axios';
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+import lodash from "lodash/uniqWith";
+import isEqual from "lodash/isEqual";
 export default {
   components: {
     SearchCheckBox,
@@ -105,8 +108,13 @@ export default {
           .then((resp) => {
             
             entireFilteredCollection = entireFilteredCollection.concat(resp.data);
-            this.books = entireFilteredCollection;
+            // this.books = entireFilteredCollection;
             // this.books.sort((a,b) => a.book_id - b.book_id);
+            // var set = new Set(this.books);
+
+            // this.books = set
+            let temp = lodash(entireFilteredCollection, isEqual);
+            this.books = temp;
           })
         }
       }
@@ -119,8 +127,14 @@ export default {
             // console.log(resp.data);
             
             entireFilteredCollection = entireFilteredCollection.concat(resp.data);
-            this.books = entireFilteredCollection;
-            
+            // this.books = entireFilteredCollection;
+            // this.books.sort((a,b) => a.book_id - b.book_id);
+            // var set = new Set(this.books);
+
+            // this.books = set
+
+            let temp = lodash(entireFilteredCollection, isEqual);
+            this.books = temp;
             
           })
         }
@@ -133,10 +147,14 @@ export default {
       }
 
       // this.books = this.sortArray(this.books);
+      
 
       console.log("types array ->> " + typesArray);
       console.log("subjects array ->> " + subjectsArray);
     },
+    removeDups(data){
+      return data.filter((value, index) => data.indexOf(value) === index);
+    }
   },
   mounted() {
     axios.get("http://localhost:5000/books").then((resp) => {
