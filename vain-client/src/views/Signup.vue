@@ -21,6 +21,7 @@
 <script>
 import FormTextField from '../components/FormTextField.vue';
 import axios from 'axios';
+var passwordHash = require('password-hash');
 export default {
     components: {
         FormTextField
@@ -44,8 +45,10 @@ export default {
             const last = this.$refs.last.text;
             const role = this.selectedRole;
             const email = this.$refs.email.text;
-            const password = this.$refs.pwd.text;
+            const password = this.$refs.pwd.text
+            const hashedPassword = passwordHash.generate(this.$refs.pwd.text);
             const confirmPassword = this.$refs.password.text;
+            console.log(password);
 
             // check that nothing is null, highlight the box that corresponds if so
 
@@ -61,7 +64,7 @@ export default {
                 lname: last,
                 role: role,
                 email: email,
-                password: password
+                password: hashedPassword
             };
 
             console.log(uservar);
@@ -69,11 +72,12 @@ export default {
             // make api request to add a user
             axios.post('http://localhost:5000/users', uservar)
             .then(resp => {
+
                 console.log(resp);
 
                 // login the user and then redirect back to the main page
                 if (resp.data) {
-                    axios.post('http://localhost:5000/login')
+                    axios.post('http://localhost:8080/login')
                 }
             })
             .catch(error => console.error(error.response.data));

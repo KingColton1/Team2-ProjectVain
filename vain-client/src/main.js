@@ -6,9 +6,13 @@ import SearchPage from './views/SearchPage'
 import Signup from './views/Signup';
 import Login from './views/Login';
 import Home from './views/Home';
+import VueCookies from 'vue3-cookies'
 import Testing from './views/Testing'
 
+
 const app = createApp(App)
+
+
 
 app.component('AddBookForm', AddBookForm)
 app.component('Reports', Reports)
@@ -44,4 +48,4 @@ const simpleRouter = {
     }
 }
 
-createApp(simpleRouter).mount('#app')
+createApp(simpleRouter).use(VueCookies).mount('#app')

@@ -54,6 +54,7 @@ import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import lodash from "lodash/uniqWith";
 import isEqual from "lodash/isEqual";
+
 export default {
   components: {
     SearchCheckBox,
@@ -83,6 +84,9 @@ export default {
       // Need to grab all of the data from the filter sections and put them into seperate arrays
       const typesArray = this.$refs.type.checkedType;
       const subjectsArray = this.$refs.subject.checkedSubjects;
+      console.log('in filters');
+      console.log( this.$cookies.get('user').role);
+     
       
       var entireFilteredCollection = [];
       // var tempArray = [];
@@ -159,10 +163,14 @@ export default {
   mounted() {
     axios.get("http://localhost:5000/books").then((resp) => {
         this.books = resp.data;
-        console.log(this.books.length)
+        console.log(this.books.length);
+        console.log( this.$cookies.get('user').user_id);
+        
+         
     });
   }
 };
+
 </script>
 <style scoped>
 #filterList {

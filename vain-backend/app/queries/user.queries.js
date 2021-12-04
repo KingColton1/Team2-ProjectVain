@@ -45,10 +45,12 @@ const deleteUser = (req, res) => {
 }
 
 const attemptLogin = (req, res) => {
-    const { user, password } = req.body;
-    pool.query('SELECT user_id, role FROM "user" WHERE user_id = $1 AND password = $2', [user, password])
+    console.log(req.body);
+    const { user } = req.body;
+    pool.query('SELECT user_id, role, password FROM "user" WHERE user_id = $1'[user])
     .then((userData) => {
-        res.send(userData);
+
+        res.send(userData.rows);
     })
     .catch(e => console.error(e.stack));
 }
