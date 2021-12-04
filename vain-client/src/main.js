@@ -6,7 +6,8 @@ import SearchPage from './views/SearchPage'
 import Signup from './views/Signup';
 import Login from './views/Login';
 import Home from './views/Home';
-import Testing from './views/Testing'
+import Testing from './views/Testing';
+import EditBookForm from './views/EditBookForm';
 
 const app = createApp(App)
 
@@ -17,6 +18,7 @@ app.component('Login', Login);
 app.component('Signup', Signup);
 app.component('Home', Home);
 app.component('Testing', Testing);
+app.component('EditBookForm', EditBookForm)
 
 const routes = {
     '/addBook': AddBookForm,
@@ -25,7 +27,8 @@ const routes = {
     '/login': Login,
     '/signup': Signup,
     '/home': Home,
-    '/unit_test': Testing
+    '/unit_test': Testing,
+    '/editBook': EditBookForm
 }
 
 const simpleRouter = {

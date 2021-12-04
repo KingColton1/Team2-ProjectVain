@@ -10,11 +10,15 @@ export default {
         placeholderText: {
             type: String,
             required: true
+        },
+        currentValue: {
+            type: String,
+            required: false
         }
     },
     data() {
         return {
-            text: ''
+            text: this.$props.currentValue ? this.$props.currentValue : ''
         };
     },
 };

@@ -9,11 +9,15 @@ export default {
     props: {
         placeholderText: {
             type: String
+        },
+        currentValue: {
+            type: String,
+            required: false
         }
     },
     data() {
         return {
-            message: ''
+            message: this.$props.currentValue ? this.$props.currentValue : ''
         }
     }
 };
