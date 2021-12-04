@@ -1,4 +1,13 @@
 <template>
+    <div class="navBar">
+        <h1>VAIN</h1>
+        <div class="links">
+            <a href='/'>Home</a>
+            <a href='/login' class="active">Login</a>
+            <a href='/addBook'>Add Book</a>
+            <a href='/reports'>Reports</a>
+        </div>
+    </div>
     <div class="login">
         <h1>Login</h1>
         <form>
@@ -51,10 +60,34 @@ export default {
     justify-content: center;
 }
 .login form {
-    width: 50%;
+    width: 25%;
     padding: 10px;
     outline: 1px solid black;
     border-radius: 5px;
     margin-bottom: 20px;
+}
+.login #loginButton {
+    background-color: #333333;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border: none;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.login #loginButton:hover {
+    background-color: #737373;
+}
+
+.login a {
+    display: block;
+    text-decoration: none;
+    color: #3366ff;
+    text-align: center;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="navBar">
-        <h2>VAIN</h2>
+        <h1>VAIN</h1>
         <div class="links">
             <a href='/'>Home</a>
             <a href='/login'>Login</a>
@@ -159,7 +159,7 @@ export default {
 </script>
 <style>
 .ui-form {
-    width: 90%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
@@ -182,17 +182,23 @@ export default {
     transition: 0.2s all;
 }
 #addBookButton {
-    margin-top: 10px;
+    background-color: #333333;
+    color: white;
+    margin-top: 15px;
     margin-bottom: 10px;
-    transition: 0.2s all;
-    border: 1px solid;
-    padding: 5px;
+    padding: 15px;
+    border: none;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: 0.3s;
 }
 #addBookButton:hover {
-    color: darkorchid;
+    background-color: #737373;
 }
 .formTitle {
-    margin-left: 5%;
+    text-align: center;
     padding: 10px;
     padding-left: 0;
 }

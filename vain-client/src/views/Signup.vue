@@ -103,9 +103,24 @@ export default {
     align-items: center;
 }
 .signup form {
-    width: 50%;
+    width: 25%;
     padding: 10px;
     outline: 1px solid black;
     border-radius: 5px;
+}
+button {
+    background-color: #333333;
+    color: white;
+    padding: 15px;
+    border: none;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #737373;
 }
 </style>

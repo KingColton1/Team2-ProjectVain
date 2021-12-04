@@ -196,30 +196,34 @@ export default {
 body {
   padding: 0;
   margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .navBar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(226, 226, 226);
-  border-bottom: 0.5px solid black;
+  background-color: #333333;
 }
-.navBar > h2 {
-  padding: 2%;
+.navBar > h1 {
+  padding: 0.5%;
+  padding-left: 2%;
+  color: #FFFFFF;
+  font-family: 'Times New Roman', Times, serif;
 }
 .links > a {
   text-decoration: none;
-  color: black;
+  color: #FFFFFF;
   padding: 10px;
+  font-size: 20px;
 }
 .links > a.active {
-  text-decoration: underline;
+  font-weight: bold;
 }
 .links > a:last-of-type {
   padding-right: 20px;
 }
 .links > a:hover {
-  color: purple;
+  color: #737373;
 }
 </style>

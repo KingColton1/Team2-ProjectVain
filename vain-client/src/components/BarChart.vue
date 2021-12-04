@@ -4,6 +4,14 @@
 </template>
 <script>
 import * as d3 from 'd3';
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 export default {
     props: {
         dataset: {
@@ -76,7 +84,7 @@ export default {
                     .attr("y", function(d) { return y(d.count); })
                     .attr("width", x.bandwidth())
                     .attr("height", function(d) { return height - y(d.count); })
-                    .attr("fill", "gray")
+                    .attr("fill", getRandomColor())
 
             });
         },
@@ -130,7 +138,7 @@ export default {
                     .attr("y", function(d) { return y(d.count); })
                     .attr("width", x.bandwidth())
                     .attr("height", function(d) { return height - y(d.count); })
-                    .attr("fill", "gray")
+                    .attr("fill", getRandomColor())
 
             });
         }

@@ -1,6 +1,6 @@
 <template>
     <div class="navBar">
-      <h2>VAIN</h2>
+      <h1>VAIN</h1>
       <div class="links">
         <a href='/'>Home</a>
         <a href='/login'>Login</a>
@@ -8,13 +8,9 @@
         <a href='/reports' class="active">Reports</a>
       </div>
     </div>
-    <div class="content">
-        <div class="section">
-            <BarChart dataset="counttype" charttitle="Number of Books Associated with Each Type" />
-        </div>
-        <div class="section">
-            <BarChart dataset="countsubject" charttitle="Number of Books Associated with Each Subject" />
-        </div>
+    <div class="grid">
+      <div class="grid-item"><BarChart dataset="counttype" charttitle="Number of Books Associated with Each Type" /></div>
+      <div class="grid-item"><BarChart dataset="countsubject" charttitle="Number of Books Associated with Each Subject" /></div>
     </div>
 </template>
 <script>
@@ -25,13 +21,15 @@ export default {
     }
 }
 </script>
-<style scoped>
-.content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-.section {
-    width: 40%;
-}
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: auto;
+    width: 50%;
+  }
+
+  .grid .grid-item {
+    padding: 5%;
+  }
 </style>

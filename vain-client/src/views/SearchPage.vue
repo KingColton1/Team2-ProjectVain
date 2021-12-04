@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="navBar">
-      <h2>VAIN</h2>
+      <h1>VAIN</h1>
       <div class="links">
         <a href='/' class="active">Home</a>
         <a href='/login'>Login</a>
@@ -17,8 +17,8 @@
           </div>
           <SearchCheckBox filterName="Type" ref="type" />
           <SearchCheckBox filterName="Subject" ref="subject" /><br />
-          <input type="button" value="Apply Filters" @click="applyFilters" /><br />
-          <input type="button" value="Clear Filters" @click="clearFilters" />
+          <input class="filterBtns" type="button" value="Apply Filters" @click="applyFilters" /><br />
+          <input class="filterBtns" type="button" value="Clear Filters" @click="clearFilters" />
         </form>
       </div>
       <div id="results">
@@ -175,7 +175,7 @@ export default {
   padding: 10px;
   display: inline-block;
   background-color: rgb(226, 226, 226);
-  border-top: 3px solid black;
+  border-top: 5px solid #737373;
 }
 
 #filterList > form {
@@ -187,7 +187,6 @@ export default {
 }
 
 #container {
-  
   display: flex;
 }
 
@@ -213,5 +212,20 @@ export default {
 #booksSelected {
   text-align: center;
 }
-</style>
+.filterBtns {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #333333;
+  color: white;
+  padding: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+}
 
+.filterBtns:hover {
+  background-color: #737373;
+}
+</style>
