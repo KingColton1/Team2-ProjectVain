@@ -66,6 +66,15 @@ const getFilteredGenreBooks = (req, res) => {
     .catch(e => console.error(e.stack));
 }
 
+const getBookYears = (req, res) => {
+    
+    pool.query('SELECT COUNT(*), year FROM book GROUP BY year ORDER BY year ASC')
+    .then(bookData => {
+        res.send(bookData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
 module.exports = {
     getAllBooks,
     getBookById,
@@ -74,5 +83,6 @@ module.exports = {
     getBooksByYear,
     getBooksByYearRange,
     getFilteredTypeBooks,
-    getFilteredGenreBooks
+    getFilteredGenreBooks,
+    getBookYears
 }

@@ -24,6 +24,19 @@
         <label :for="subject.subject">{{ subject.subject }}</label>
       </div>
     </div>
+    
+    <div class="list" v-else-if="filterName == 'Year'">
+      <div class="item" v-for="year in years" :key="year.year">
+        <input
+          type="checkbox"
+          v-model="checkedYears"
+          name="year.year"
+          :value="year.year"
+        />
+        <label :for="year.year">{{ year.year }}</label>
+      </div>
+    </div>
+    
   </div>
 </template>
 <script>
@@ -39,8 +52,10 @@ export default {
     return {
       types: [],
       subjects: [],
+      years: [],
       checkedType: [],
       checkedSubjects: [],
+      checkedYears: []
     };
   },
   methods: {
@@ -52,11 +67,15 @@ export default {
     }
   },
   mounted() {
+    
     axios.get("http://localhost:5000/types").then((resp) => {
       this.types = resp.data;
     });
     axios.get("http://localhost:5000/subjects").then((resp) => {
       this.subjects = resp.data;
+    });
+    axios.get("http://localhost:5000/books/year").then((resp) => {
+      this.years = resp.data;
     });
   },
 };
