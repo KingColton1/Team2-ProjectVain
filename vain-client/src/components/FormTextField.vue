@@ -10,11 +10,15 @@ export default {
         placeholderText: {
             type: String,
             required: true
+        },
+        currentValue: {
+            type: String,
+            required: false
         }
     },
     data() {
         return {
-            text: ''
+            text: this.$props.currentValue ? this.$props.currentValue : ''
         };
     },
 };
@@ -23,6 +27,7 @@ export default {
 .field {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
+    margin-bottom: 10px;
 }
 </style>

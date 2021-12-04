@@ -57,11 +57,27 @@ export default {
         headerText: {
             type: String,
             required: true
+        },
+        subjectsList: {
+            type: Array,
+            required: false
+        },
+        typesList: {
+            type: Array,
+            required: false
+        },
+        authorsList: {
+            type: Array,
+            required: false
+        },
+        publishersList: {
+            type: Array,
+            required: false
         }
     },
     data() {
         return {
-            checkedAuthors: [],
+            checkedAuthors: this.$props.authorsList ? this.$props.authorsList : [],
             authors: [],
             publishers: [],
             checkedPublishers: [],

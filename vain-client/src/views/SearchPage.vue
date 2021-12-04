@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="navBar">
-      <h2>VAIN</h2>
+      <h1>VAIN</h1>
       <div class="links">
         <a href='/' class="active">Home</a>
         <a href='/login'>Login</a>
@@ -16,13 +16,15 @@
             <input type="text" placeholder="Search..." v-model.trim="inputSearch" />
           </div>
           <SearchCheckBox filterName="Type" ref="type" />
-          <SearchCheckBox filterName="Subject" ref="subject" /><br />
-          <input type="button" value="Apply Filters" @click="applyFilters" /><br />
-          <input type="button" value="Clear Filters" @click="clearFilters" />
+          <SearchCheckBox filterName="Subject" ref="subject" />
+          <SearchCheckBox filterName="Year" ref="year" /><br />
+          <input class="filterBtns" type="button" value="Apply Filters" @click="applyFilters" /><br />
+          <input class="filterBtns" type="button" value="Clear Filters" @click="clearFilters" />
         </form>
       </div>
       <div id="results">
         <div class="books">
+          <p id="booksSelected">selected books: {{checkedBooks}}</p>
           <v-pagination
             v-model="page"
             :pages="Math.round(parseFloat(this.books.length/10))"
@@ -34,7 +36,7 @@
               <h3>{{book.title}}</h3>
               <p><strong>{{book.year}}</strong></p>
               <p>{{book.description}}</p>
-              <p>{{book.book_id}}</p>
+              <button type="button" @click="editBook(book)">Edit Book</button>
           </div>
           <v-pagination
             v-model="page"
@@ -52,9 +54,12 @@ import SearchCheckBox from "../components/SearchCheckBox.vue";
 import axios from 'axios';
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+<<<<<<< HEAD
 import lodash from "lodash/uniqWith";
 import isEqual from "lodash/isEqual";
 
+=======
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
 export default {
   components: {
     SearchCheckBox,
@@ -72,6 +77,7 @@ export default {
     clearFilters() {
       const typesArray = this.$refs.type.checkedType;
       const subjectsArray = this.$refs.subject.checkedSubjects;
+      const yearsArray = this.$refs.year.checkedYears;
 
       if (typesArray.length > 0) {
         console.log(typesArray);
@@ -79,19 +85,27 @@ export default {
       if (subjectsArray.length > 0) {
         console.log(subjectsArray);
       }
+      if(yearsArray.length > 0) {
+        console.log(yearsArray);
+      }
     },
     applyFilters() {
       // Need to grab all of the data from the filter sections and put them into seperate arrays
       const typesArray = this.$refs.type.checkedType;
       const subjectsArray = this.$refs.subject.checkedSubjects;
+<<<<<<< HEAD
       console.log('in filters');
       console.log( this.$cookies.get('user').role);
      
+=======
+      const yearsArray = this.$refs.year.checkedYears;
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
       
       var entireFilteredCollection = [];
       // var tempArray = [];
       var typeRoute = 'http://localhost:5000/books/book/type';
       var genreRoute = 'http://localhost:5000/books/book/genre';
+      var yearRoute = 'http://localhost:5000/books/years';
 
       this.books = [];
 
@@ -107,66 +121,93 @@ export default {
       if(typesArray.length !== 0){
         for(let i = 0; i < typesArray.length; i++){
   
-          axios
-          .get(typeRoute + "/" + typesArray[i].charAt(0))
+          axios.get(typeRoute + "/" + typesArray[i].charAt(0))
           .then((resp) => {
             
             entireFilteredCollection = entireFilteredCollection.concat(resp.data);
-            // this.books = entireFilteredCollection;
-            // this.books.sort((a,b) => a.book_id - b.book_id);
-            // var set = new Set(this.books);
+            entireFilteredCollection = entireFilteredCollection.sort(this.compare);
 
-            // this.books = set
-            let temp = lodash(entireFilteredCollection, isEqual);
-            this.books = temp;
+            const set = Array.from(new Set(entireFilteredCollection.map(b => b.book_id)))
+            .map(book_id => {
+              return entireFilteredCollection.find(b => b.book_id === book_id)
+            });
+            this.books = set;
+
           })
         }
       }
       if(subjectsArray.length !== 0){
         for(let i = 0; i < subjectsArray.length; i++){
   
-          axios
-          .get(genreRoute + "/" + subjectsArray[i].charAt(0))
+          axios.get(genreRoute + "/" + subjectsArray[i].charAt(0))
           .then((resp) => {
-            // console.log(resp.data);
             
             entireFilteredCollection = entireFilteredCollection.concat(resp.data);
-            // this.books = entireFilteredCollection;
-            // this.books.sort((a,b) => a.book_id - b.book_id);
-            // var set = new Set(this.books);
+            entireFilteredCollection = entireFilteredCollection.sort(this.compare);
 
-            // this.books = set
-
-            let temp = lodash(entireFilteredCollection, isEqual);
-            this.books = temp;
+            const set = Array.from(new Set(entireFilteredCollection.map(b => b.book_id)))
+            .map(book_id => {
+              return entireFilteredCollection.find(b => b.book_id === book_id)
+            });
+            this.books = set;
             
           })
         }
       }
-      if (typesArray.length == 0 && subjectsArray.length == 0) {
+      if(yearsArray.length !== 0){
+        for(let i = 0; i < yearsArray.length; i++){
+
+          axios.get(yearRoute + "/" + yearsArray[i])
+          .then((resp) => {
+
+            entireFilteredCollection = entireFilteredCollection.concat(resp.data);
+            entireFilteredCollection = entireFilteredCollection.sort(this.compare);
+
+            const set = Array.from(new Set(entireFilteredCollection.map(b => b.book_id)))
+            .map(book_id => {
+              return entireFilteredCollection.find(b => b.book_id === book_id)
+            });
+            this.books = set;
+            
+          })
+        }
+      }
+      if (typesArray.length == 0 && subjectsArray.length == 0 && yearsArray.length == 0) {
         axios.get("http://localhost:5000/books").then((resp) => {
           this.books = resp.data;
-          console.log(this.books.length)
         });
       }
 
       // this.books = this.sortArray(this.books);
       
 
-      console.log("types array ->> " + typesArray);
-      console.log("subjects array ->> " + subjectsArray);
+      // console.log("types array ->> " + typesArray);
+      // console.log("subjects array ->> " + subjectsArray);
+      // console.log("years array ->> " + yearsArray);
     },
-    removeDups(data){
-      return data.filter((value, index) => data.indexOf(value) === index);
+    compare(a, b) {
+      if ( a.book_id < b.book_id ){
+        return -1;
+      }
+      if ( a.book_id > b.book_id ){
+        return 1;
+      }
+      return 0;
+    },
+    editBook(book) {
+      console.log(book);
     }
   },
   mounted() {
     axios.get("http://localhost:5000/books").then((resp) => {
         this.books = resp.data;
+<<<<<<< HEAD
         console.log(this.books.length);
         console.log( this.$cookies.get('user').user_id);
         
          
+=======
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
     });
   }
 };
@@ -177,7 +218,7 @@ export default {
   padding: 10px;
   display: inline-block;
   background-color: rgb(226, 226, 226);
-  border-top: 3px solid black;
+  border-top: 5px solid #737373;
 }
 
 #filterList > form {
@@ -189,7 +230,6 @@ export default {
 }
 
 #container {
-  
   display: flex;
 }
 
@@ -212,5 +252,23 @@ export default {
   padding-bottom: 20px;
   padding-top: 20px;
 }
-</style>
+#booksSelected {
+  text-align: center;
+}
+.filterBtns {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #333333;
+  color: white;
+  padding: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+}
 
+.filterBtns:hover {
+  background-color: #737373;
+}
+</style>

@@ -140,6 +140,7 @@ app.get('/books/book/:id', books.getBookById);
 app.get('/books/years/:year', books.getBooksByYear);
 app.get('/books/book/type/:type', books.getFilteredTypeBooks);
 app.get('/books/book/genre/:genre', books.getFilteredGenreBooks);
+app.get('/books/year', books.getBookYears);
 app.post('/books',
   body('authorship').not().isEmpty().trim().escape(),
   body('title').not().isEmpty().trim().escape(),
@@ -200,6 +201,7 @@ app.get('/bookSubjects/book/:subject', bookSubjects.getAllBooksWithSubject);
 app.get('/reports/year', reports.getBooksGroupByYear);
 app.get('/reports/type', reports.getBooksGroupByType);
 app.get('/reports/subject', reports.getBooksGroupBySubject);
+app.get('/reports/authorship', reports. getBooksGroupByAuthorship);
 
 app.listen(port, () => {
     console.log(`vain backend app is running on port ${port}`);
