@@ -42,7 +42,7 @@ export default {
     methods: {
         generateTypeCountChart() {
             const margin = {top: 10, right: 30, bottom: 70, left: 40},
-            width = 360 - margin.left - margin.right,
+            width = 900 - margin.left - margin.right,
             height = 300 - margin.top - margin.bottom;
 
             const svg = d3.select(`#counttype`)
@@ -80,23 +80,55 @@ export default {
                     .call(d3.axisLeft(y));
 
                 // add labels to axis
+                var div = d3.select("body")
+                    .append("div")
+                    .attr("class", "tool-tip")
+                    .style("opacity", 0)
+                    .text("a simple tooltip");
 
                 // Bars
                 svg.selectAll("mybar")
                     .data(data)
                     .enter()
                     .append("rect")
-                    .attr("x", function(d) { return x(d.type); })
-                    .attr("y", function(d) { return y(d.count); })
+                    .attr("x", function(d) {return x(d.type); })
+                    .attr("y", function(d) {return y(d.count); })
                     .attr("width", x.bandwidth())
                     .attr("height", function(d) { return height - y(d.count); })
                     .attr("fill", getRandomColor())
+                    .on("mouseenter", function(d) {
+                        d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .attr('opacity', 0.5);
+
+                        let count = (d.target.__data__.count).toString();
+                        
+                        div.transition()
+                        .duration(50)
+                        .style("opacity", 1)
+                        .text(count)
+                        .style("left", (d.pageX + 10) + "px")
+                        .style("top", (d.pageY - 15) + "px");
+                    
+                        
+                    })
+                    .on("mouseout", function() {
+                        d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .attr('opacity', 1);
+
+                        div.transition()
+                        .duration(50)
+                        .style("opacity", 0);
+                    })
 
             });
         },
         generateSubjectCountChart() {
             const margin = {top: 10, right: 30, bottom: 70, left: 40},
-            width = 360 - margin.left - margin.right,
+            width = 900 - margin.left - margin.right,
             height = 300 - margin.top - margin.bottom;
 
             const svg = d3.select(`#countsubject`)
@@ -134,6 +166,11 @@ export default {
                     .call(d3.axisLeft(y));
 
                 // add labels to axis
+                 var div = d3.select("body")
+                    .append("div")
+                    .attr("class", "tool-tip")
+                    .style("opacity", 0)
+                    .text("a simple tooltip");
 
                 // Bars
                 svg.selectAll("mybar")
@@ -145,6 +182,33 @@ export default {
                     .attr("width", x.bandwidth())
                     .attr("height", function(d) { return height - y(d.count); })
                     .attr("fill", getRandomColor())
+                    .on("mouseenter", function(d) {
+                        d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .attr('opacity', 0.5);
+
+                        let count = (d.target.__data__.count).toString();
+                        
+                        div.transition()
+                        .duration(50)
+                        .style("opacity", 1)
+                        .text(count)
+                        .style("left", (d.pageX + 10) + "px")
+                        .style("top", (d.pageY - 15) + "px");
+                    
+                        
+                    })
+                    .on("mouseout", function() {
+                        d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .attr('opacity', 1);
+
+                        div.transition()
+                        .duration(50)
+                        .style("opacity", 0);
+                    })
 
             });
         },
@@ -188,6 +252,11 @@ export default {
                     .call(d3.axisLeft(y));
 
                 // add labels to axis
+                 var div = d3.select("body")
+                    .append("div")
+                    .attr("class", "tool-tip")
+                    .style("opacity", 0)
+                    .text("a simple tooltip");
 
                 // Bars
                 svg.selectAll("mybar")
@@ -199,6 +268,33 @@ export default {
                     .attr("width", x.bandwidth())
                     .attr("height", function(d) { return height - y(d.count); })
                     .attr("fill", getRandomColor())
+                    .on("mouseenter", function(d) {
+                        d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .attr('opacity', 0.5);
+
+                        let count = (d.target.__data__.count).toString();
+                        
+                        div.transition()
+                        .duration(50)
+                        .style("opacity", 1)
+                        .text(count)
+                        .style("left", (d.pageX + 10) + "px")
+                        .style("top", (d.pageY - 15) + "px");
+                    
+                        
+                    })
+                    .on("mouseout", function() {
+                        d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .attr('opacity', 1);
+
+                        div.transition()
+                        .duration(50)
+                        .style("opacity", 0);
+                    })
 
             });
         },
@@ -242,6 +338,11 @@ export default {
                     .call(d3.axisLeft(y));
 
                 // add labels to axis
+                 var div = d3.select("body")
+                    .append("div")
+                    .attr("class", "tool-tip")
+                    .style("opacity", 0)
+                    .text("a simple tooltip");
 
                 // Bars
                 svg.selectAll("mybar")
@@ -253,9 +354,49 @@ export default {
                     .attr("width", x.bandwidth())
                     .attr("height", function(d) { return height - y(d.count); })
                     .attr("fill", getRandomColor())
+                    .on("mouseenter", function(d) {
+                        d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .attr('opacity', 0.5);
+
+                        let count = (d.target.__data__.count).toString();
+                        
+                        div.transition()
+                        .duration(50)
+                        .style("opacity", 1)
+                        .text(count)
+                        .style("left", (d.pageX + 10) + "px")
+                        .style("top", (d.pageY - 15) + "px");
+                    
+                        
+                    })
+                    .on("mouseout", function() {
+                        d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .attr('opacity', 1);
+
+                        div.transition()
+                        .duration(50)
+                        .style("opacity", 0);
+                    })
 
             });
         }
     }
 }
 </script>
+<style>
+div.tool-tip {
+    position: absolute;
+    text-align: center;
+    padding: .5rem;
+    background: #FFFFFF;
+    color: #313639;
+    border: 1px solid #313639;
+    border-radius: 8px;
+    pointer-events: none;
+    font-size: 1.3rem;
+}
+</style>

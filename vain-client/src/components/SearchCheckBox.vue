@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox">
-    <h4>{{ filterName }}</h4>
+    <h4>{{ filterName }} </h4>
     <div class="list" v-if="filterName == 'Type'">
       <div class="item" v-for="type in types" :key="type.type_id">
         <input
@@ -45,7 +45,7 @@ export default {
   props: {
     filterName: {
       type: String,
-      required: true,
+      required: true
     },
   },
   data() {
@@ -64,6 +64,9 @@ export default {
     },
     getSelectedTypes() {
       return this.data.checkedType;
+    },
+    toggleDiv() {
+      this.display_div = !this.display_div;
     }
   },
   mounted() {
