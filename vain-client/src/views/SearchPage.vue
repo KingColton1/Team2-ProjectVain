@@ -54,6 +54,12 @@ import SearchCheckBox from "../components/SearchCheckBox.vue";
 import axios from 'axios';
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+<<<<<<< HEAD
+import lodash from "lodash/uniqWith";
+import isEqual from "lodash/isEqual";
+
+=======
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
 export default {
   components: {
     SearchCheckBox,
@@ -87,7 +93,13 @@ export default {
       // Need to grab all of the data from the filter sections and put them into seperate arrays
       const typesArray = this.$refs.type.checkedType;
       const subjectsArray = this.$refs.subject.checkedSubjects;
+<<<<<<< HEAD
+      console.log('in filters');
+      console.log( this.$cookies.get('user').role);
+     
+=======
       const yearsArray = this.$refs.year.checkedYears;
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
       
       var entireFilteredCollection = [];
       // var tempArray = [];
@@ -193,9 +205,17 @@ export default {
   mounted() {
     axios.get("http://localhost:5000/books").then((resp) => {
         this.books = resp.data;
+<<<<<<< HEAD
+        console.log(this.books.length);
+        console.log( this.$cookies.get('user').user_id);
+        
+         
+=======
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
     });
   }
 };
+
 </script>
 <style scoped>
 #filterList {

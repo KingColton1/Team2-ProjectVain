@@ -6,10 +6,18 @@ import SearchPage from './views/SearchPage'
 import Signup from './views/Signup';
 import Login from './views/Login';
 import Home from './views/Home';
+<<<<<<< HEAD
+import VueCookies from 'vue3-cookies'
+import Testing from './views/Testing'
+=======
 import Testing from './views/Testing';
 import EditBookForm from './views/EditBookForm';
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
+
 
 const app = createApp(App)
+
+
 
 app.component('AddBookForm', AddBookForm)
 app.component('Reports', Reports)
@@ -47,4 +55,4 @@ const simpleRouter = {
     }
 }
 
-createApp(simpleRouter).mount('#app')
+createApp(simpleRouter).use(VueCookies).mount('#app')
