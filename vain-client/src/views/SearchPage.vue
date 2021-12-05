@@ -183,7 +183,11 @@ export default {
       return 0;
     },
     editBook(book) {
-      console.log(book);
+      console.log(book.book_id);
+      axios.put("http://localhost:5000/books/" + book.book_id).then((resp) => {
+        console.log("Book was updated");
+        console.log(resp.data);
+      })
     }
   },
   mounted() {

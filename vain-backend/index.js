@@ -154,6 +154,7 @@ app.post('/books',
   books.addNewBook
 );
 // put
+app.put('/books/:id', books.updateBook);
 app.delete('/books/book/:id', books.deleteBook);
 
 

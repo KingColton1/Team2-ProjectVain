@@ -27,6 +27,10 @@ const addNewBook = (req, res) => {
     .catch(e => console.error(e));
 }
 
+const updateBook = (req, res) => {
+    const { authorship, title, year, description, namedpersons, notes, located, modifiedby, lastupdated } = req.body;
+}
+
 const deleteBook = (req, res) => {
     pool.query('DELETE FROM book WHERE book_id = $1', [req.params.id])
     .then(() => {
@@ -44,7 +48,11 @@ const getBooksByYear = (req, res) => {
 }
 
 const getBooksByYearRange = (req, res) => {
-
+    pool.query('SELECT * FROM book JOIN type_book USING(book_id) JOIN type USING(type_id) WHERE type_id = $1', [req.params.type])
+    .then(bookData => {
+        res.send(bookData.rows);
+    })
+    .catch(e => console.error(e.stack));
 }
 
 // Trying to figure out how to dynamically create SQL for the filters
@@ -84,5 +92,6 @@ module.exports = {
     getBooksByYearRange,
     getFilteredTypeBooks,
     getFilteredGenreBooks,
-    getBookYears
+    getBookYears,
+    updateBook
 }
