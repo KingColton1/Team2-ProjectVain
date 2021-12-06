@@ -17,6 +17,39 @@ const getBookById = (req, res) => {
     .catch(e => console.error(e.stack));
 }
 
+const getBookSubjectById = (req, res) => {
+    pool.query('SELECT subject FROM book WHERE book_id = $1', [req.params.id])
+    .then(bookData => {
+        res.send(bookData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
+const getBookTypeById = (req, res) => {
+    pool.query('SELECT type FROM book WHERE book_id = $1', [req.params.id])
+    .then(bookData => {
+        res.send(bookData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
+const getBookAuthorById = (req, res) => {
+    pool.query('SELECT author FROM book WHERE book_id = $1', [req.params.id])
+    .then(bookData => {
+        res.send(bookData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
+const getBookPublisherById = (req, res) => {
+    pool.query('SELECT publisher FROM book WHERE book_id = $1', [req.params.id])
+    .then(bookData => {
+        res.send(bookData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
+
 const addNewBook = (req, res) => {
     const { authorship, title, year, description, namedpersons, notes, located, modifiedby, lastupdated } = req.body;
     console.log(req.body);
@@ -93,5 +126,9 @@ module.exports = {
     getFilteredTypeBooks,
     getFilteredGenreBooks,
     getBookYears,
-    updateBook
+    updateBook,
+    getBookSubjectById,
+    getBookTypeById,
+    getBookAuthorById,
+    getBookPublisherById
 }
