@@ -7,10 +7,13 @@ import SearchPage from './views/SearchPage'
 import Signup from './views/Signup';
 import Login from './views/Login';
 import Home from './views/Home';
-import Testing from './views/Testing';
+import Testing from './views/Testing'
 import EditBookForm from './views/EditBookForm';
 
+
 const app = createApp(App)
+
+
 
 app.component('AddBookForm', AddBookForm)
 app.component('Reports', Reports)

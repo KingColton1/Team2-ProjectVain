@@ -3,7 +3,11 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'vain_db',
+<<<<<<< HEAD
     password: 'student',
+=======
+    password: 'localhost',
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
     dialect: 'postgres',
     port: 5432
 });

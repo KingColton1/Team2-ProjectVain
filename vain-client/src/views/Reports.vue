@@ -11,6 +11,8 @@
     <div class="grid">
       <div class="grid-item"><BarChart dataset="counttype" charttitle="Number of Books Associated with Each Type" /></div>
       <div class="grid-item"><BarChart dataset="countsubject" charttitle="Number of Books Associated with Each Subject" /></div>
+      <div class="grid-item"><BarChart dataset="countyear" charttitle="Number of Books Associated with Each Year" /></div>
+      <div class="grid-item"><BarChart dataset="countauthorship" charttitle="Number of Books Associated with Authorship" /></div>
     </div>
 </template>
 <script>
@@ -24,7 +26,7 @@ export default {
 <style>
   .grid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto;
     margin: auto;
     width: 50%;
   }

@@ -25,6 +25,14 @@ const getBooksGroupBySubject = (req, res) => {
     .catch(e => console.error(e.stack));
 }
 
+const getBooksGroupByAuthorship = (req, res) => {
+    pool.query(`SELECT COUNT(*), authorship FROM book GROUP BY authorship`)
+    .then(booksData => {
+        res.send(booksData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
 // other report ideas:
 // publisher counts
 // subject counts
@@ -32,5 +40,7 @@ const getBooksGroupBySubject = (req, res) => {
 module.exports = {
     getBooksGroupByYear,
     getBooksGroupByType,
-    getBooksGroupBySubject
+    getBooksGroupBySubject,
+    getBooksGroupByAuthorship
+
 }

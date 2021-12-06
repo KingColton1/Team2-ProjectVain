@@ -13,7 +13,8 @@
       <div id="filterList">
         <form action="" method="get">
           <SearchCheckBox filterName="Type" ref="type" />
-          <SearchCheckBox filterName="Subject" ref="subject" /><br />
+          <SearchCheckBox filterName="Subject" ref="subject" />
+          <SearchCheckBox filterName="Year" ref="year" /><br />
           <input class="filterBtns" type="button" value="Apply Filters" @click="applyFilters" /><br />
           <input class="filterBtns" type="button" value="Clear Filters" @click="clearFilters" />
         </form>
@@ -51,6 +52,12 @@ import SearchCheckBox from "../components/SearchCheckBox.vue";
 import axios from 'axios';
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+<<<<<<< HEAD
+import lodash from "lodash/uniqWith";
+import isEqual from "lodash/isEqual";
+
+=======
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
 export default {
   components: {
     SearchCheckBox,
@@ -66,6 +73,7 @@ export default {
     clearFilters() {
       const typesArray = this.$refs.type.checkedType;
       const subjectsArray = this.$refs.subject.checkedSubjects;
+      const yearsArray = this.$refs.year.checkedYears;
 
       if (typesArray.length > 0) {
         console.log(typesArray);
@@ -73,16 +81,27 @@ export default {
       if (subjectsArray.length > 0) {
         console.log(subjectsArray);
       }
+      if(yearsArray.length > 0) {
+        console.log(yearsArray);
+      }
     },
     applyFilters() {
       // Need to grab all of the data from the filter sections and put them into seperate arrays
       const typesArray = this.$refs.type.checkedType;
       const subjectsArray = this.$refs.subject.checkedSubjects;
+<<<<<<< HEAD
+      console.log('in filters');
+      console.log( this.$cookies.get('user').role);
+     
+=======
+      const yearsArray = this.$refs.year.checkedYears;
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
       
       var entireFilteredCollection = [];
       // var tempArray = [];
       var typeRoute = 'http://localhost:5000/books/book/type';
       var genreRoute = 'http://localhost:5000/books/book/genre';
+      var yearRoute = 'http://localhost:5000/books/years';
 
       this.books = [];
 
@@ -131,7 +150,25 @@ export default {
           })
         }
       }
-      if (typesArray.length == 0 && subjectsArray.length == 0) {
+      if(yearsArray.length !== 0){
+        for(let i = 0; i < yearsArray.length; i++){
+
+          axios.get(yearRoute + "/" + yearsArray[i])
+          .then((resp) => {
+
+            entireFilteredCollection = entireFilteredCollection.concat(resp.data);
+            entireFilteredCollection = entireFilteredCollection.sort(this.compare);
+
+            const set = Array.from(new Set(entireFilteredCollection.map(b => b.book_id)))
+            .map(book_id => {
+              return entireFilteredCollection.find(b => b.book_id === book_id)
+            });
+            this.books = set;
+            
+          })
+        }
+      }
+      if (typesArray.length == 0 && subjectsArray.length == 0 && yearsArray.length == 0) {
         axios.get("http://localhost:5000/books").then((resp) => {
           this.books = resp.data;
         });
@@ -140,11 +177,9 @@ export default {
       // this.books = this.sortArray(this.books);
       
 
-      console.log("types array ->> " + typesArray);
-      console.log("subjects array ->> " + subjectsArray);
-    },
-    removeDups(data){
-      return data.filter((value, index) => data.indexOf(value) === index);
+      // console.log("types array ->> " + typesArray);
+      // console.log("subjects array ->> " + subjectsArray);
+      // console.log("years array ->> " + yearsArray);
     },
     compare(a, b) {
       if ( a.book_id < b.book_id ){
@@ -171,9 +206,17 @@ export default {
   mounted() {
     axios.get("http://localhost:5000/books").then((resp) => {
         this.books = resp.data;
+<<<<<<< HEAD
+        console.log(this.books.length);
+        console.log( this.$cookies.get('user').user_id);
+        
+         
+=======
+>>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
     });
   }
 };
+
 </script>
 <style scoped>
 #filterList {

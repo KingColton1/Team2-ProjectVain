@@ -36,6 +36,7 @@ import FormTextField from '../components/FormTextField.vue';
 import FormTextArea from '../components/FormTextArea.vue';
 import FormCheckList from '../components/FormCheckList.vue';
 import axios from 'axios';
+ 
 export default {
     components: {
         FormTextField,
@@ -49,12 +50,15 @@ export default {
         }
     },
     mounted() {
+        
         axios.get('http://localhost:5000/reports/type').then((resp) => {
             this.bookTypeCount = resp.data;
+           
         });
     },
     methods: {
         addBook() {
+            
             // pull data from form fields
             const title = this.$refs.title.text;
             const year = this.$refs.year.text;

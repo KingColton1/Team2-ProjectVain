@@ -17,34 +17,57 @@
             <button id='createAccountButton' type="button" @click="createAccount">Create an account</button>
             <button id='continueGuest' type="button" @click="guestUser">Continue as Guest</button>
         </form>
+       <h3>{{error}}</h3>
     </div>
 </template>
 <script>
 import FormTextField from '../components/FormTextField.vue';
 import axios from 'axios';
+var passwordHash = require('password-hash');
 export default {
+   data() {
+    return {
+      error: '',
+    }
+  },
     components: {
         FormTextField
     },
     methods: {
         login() {
-            // pull data and make sure fields are not empty
-            const email = this.$refs.email.text;
+          
             const password = this.$refs.pwd.text;
+            const email = this.$refs.email.text;
 
             // check to make sure not null, not worth time rn
 
             // make some sort of api request
             const loginvar = {
-                email: email,
-                password: password
+                password: password,
+                email: email
             }
+            console.log(loginvar);
 
             axios.get('http://localhost:5000/login', loginvar)
             .then(resp => {
-                console.log(resp.data);
-                if (resp.data) {
-                    this.$router.push({ name: 'search' });
+                console.log(resp);
+                if (resp.data) { //make sure something was returned
+                               
+                    if(passwordHash.verify(password, password)){ //verify password
+
+                        console.log('PW verifeid');
+                        this.$cookies.set("default_unit_second","input_value",0); // session ends when browser is closed
+                        this.$cookies.set('user', resp.data); // add user JSON object to cookies
+                        this.$router.push({ name: 'search' });
+                    
+                    }
+                    else {
+                         this.error = 'Cannot log in with given Username and Password'
+                    }
+                    // console.log( this.$cookies.get('user').role); //
+                }
+                else {
+                    this.error = 'Cannot log in with given Username and Password'
                 }
             })
             .catch(error => console.error(error.response.data));
