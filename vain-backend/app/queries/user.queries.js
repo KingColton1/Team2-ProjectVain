@@ -45,20 +45,11 @@ const deleteUser = (req, res) => {
 }
 
 const attemptLogin = (req, res) => {
-<<<<<<< HEAD
-    console.log(req.body);
-    const { user } = req.body;
-    pool.query('SELECT user_id, role, password FROM "user" WHERE user_id = $1'[user])
-    .then((userData) => {
-
-        res.send(userData.rows);
-=======
     const { email, password } = req.body;
     pool.query('SELECT * FROM "user" WHERE email = $1 AND password = $2', [email, password])
     .then((userData) => {
         console.log(userData);
         res.send(userData);
->>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
     })
     .catch(e => console.error(e.stack));
 }
