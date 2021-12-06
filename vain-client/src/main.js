@@ -1,4 +1,5 @@
-import { createApp, h } from 'vue'
+import { createApp } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue'
 import AddBookForm from './views/AddBookForm'
 import Reports from './views/Reports'
@@ -20,31 +21,21 @@ app.component('Home', Home);
 app.component('Testing', Testing);
 app.component('EditBookForm', EditBookForm)
 
-const routes = {
-    '/addBook': AddBookForm,
-    '/': SearchPage,
-    '/reports': Reports,
-    '/login': Login,
-    '/signup': Signup,
-    '/home': Home,
-    '/unit_test': Testing,
-    '/editBook': EditBookForm
-}
+const routes = [
+    { path: '/addBook', component: AddBookForm },
+    { component: SearchPage, name:'search', path: "/" },
+    { path: '/reports', component: Reports },
+    { path: '/login', component: Login },
+    { path: '/signup', component: Signup },
+    { path: '/home', component: Home },
+    { path: '/unit_test', component: Testing },
+    { path: '/editBook/:id', component: EditBookForm, props: true, name: 'editBook' }
+]
 
-const simpleRouter = {
-    data: () => ({
-        currentRoute: window.location.pathname
-    }),
+const router = createRouter({
+    history: createWebHistory(),
+    routes
+})
 
-    computed: {
-        CurrentComponent() {
-            return routes[this.currentRoute]
-        }
-    },
-
-    render() {
-        return h(this.CurrentComponent)
-    }
-}
-
-createApp(simpleRouter).mount('#app')
+app.use(router);
+app.mount('#app')

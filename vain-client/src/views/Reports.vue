@@ -2,10 +2,10 @@
     <div class="navBar">
       <h1>VAIN</h1>
       <div class="links">
-        <a href='/'>Home</a>
-        <a href='/login'>Login</a>
-        <a href='/addBook'>Add Book</a>
-        <a href='/reports' class="active">Reports</a>
+        <router-link to="/">Home</router-link>
+        <router-link to="/login">Login</router-link>
+        <router-link to="/addBook">Add Book</router-link>
+        <router-link to="/reports" class="active">Reports</router-link>
       </div>
     </div>
     <div class="grid">

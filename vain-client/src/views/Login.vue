@@ -2,10 +2,10 @@
     <div class="navBar">
         <h1>VAIN</h1>
         <div class="links">
-            <a href='/'>Home</a>
-            <a href='/login' class="active">Login</a>
-            <a href='/addBook'>Add Book</a>
-            <a href='/reports'>Reports</a>
+            <router-link to="/">Home</router-link>
+            <router-link to="/login" class="active">Login</router-link>
+            <router-link to="/addBook">Add Book</router-link>
+            <router-link to="/reports">Reports</router-link>
         </div>
     </div>
     <div class="login">
@@ -13,8 +13,9 @@
         <form>
             <FormTextField placeholderText="Email" ref="email" />
             <FormTextField placeholderText="Password" ref="pwd" />
-            <button id='loginButton' type="button" @click="login">Login</button><br />
-            <a href='/signup'>Create an account</a>
+            <button id='loginButton' type="button" @click="login">Login</button>
+            <button id='createAccountButton' type="button" @click="createAccount">Create an account</button>
+            <button id='continueGuest' type="button" @click="guestUser">Continue as Guest</button>
         </form>
     </div>
 </template>
@@ -42,11 +43,18 @@ export default {
             axios.get('http://localhost:5000/login', loginvar)
             .then(resp => {
                 console.log(resp.data);
-                if (resp.data.fields[0]["user_id"]) {
-                    // window.location.href = 'http://localhost:8080/';
+                if (resp.data) {
+                    this.$router.push({ name: 'search' });
                 }
             })
             .catch(error => console.error(error.response.data));
+        },
+        createAccount() {
+            this.$router.push({ path: '/signup' });
+        },
+        guestUser() {
+            // use guest login info and then redirect
+            this.$router.push({ name: 'search' });
         }
     }
 }
@@ -60,27 +68,26 @@ export default {
     justify-content: center;
 }
 .login form {
-    width: 25%;
-    padding: 10px;
-    outline: 1px solid black;
+    width: 60%;
+    padding: 20px;
+    outline: 1px solid #333333;
     border-radius: 5px;
     margin-bottom: 20px;
 }
-.login #loginButton {
+.login #loginButton, #createAccountButton, #continueGuest {
     background-color: #333333;
     color: white;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
     padding: 15px;
     border: none;
     width: 100%;
     font-weight: bold;
     cursor: pointer;
     border-radius: 12px;
-    transition: 0.3s;
+    transition: 0.3s all;
 }
 
-.login #loginButton:hover {
+.login #loginButton:hover, #createAccountButton:hover, #continueGuest:hover {
     background-color: #737373;
 }
 

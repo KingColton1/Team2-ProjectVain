@@ -3,18 +3,15 @@
     <div class="navBar">
       <h1>VAIN</h1>
       <div class="links">
-        <a href='/' class="active">Home</a>
-        <a href='/login'>Login</a>
-        <a href='/addBook'>Add Book</a>
-        <a href='/reports'>Reports</a>
+        <router-link to="/" class="active">Home</router-link>
+        <router-link to="/login">Login</router-link>
+        <router-link to="/addBook">Add Book</router-link>
+        <router-link to="/reports">Reports</router-link>
       </div>
     </div>
     <div id="container">
       <div id="filterList">
         <form action="" method="get">
-          <div id="searchBooks">
-            <input type="text" placeholder="Search..." v-model.trim="inputSearch" />
-          </div>
           <SearchCheckBox filterName="Type" ref="type" />
           <SearchCheckBox filterName="Subject" ref="subject" /><br />
           <input class="filterBtns" type="button" value="Apply Filters" @click="applyFilters" /><br />
@@ -23,7 +20,6 @@
       </div>
       <div id="results">
         <div class="books">
-          <p id="booksSelected">selected books: {{checkedBooks}}</p>
           <v-pagination
             v-model="page"
             :pages="Math.round(parseFloat(this.books.length/10))"
@@ -31,11 +27,13 @@
             active-color="white"
           />
           <div class="bookcard" v-for="book in books.slice((0 + ((page - 1) * 10)), (page * 10))" :key="book.book_id">
-              <input type="checkbox" v-model="checkedBooks" :value="book.book_id">
               <h3>{{book.title}}</h3>
               <p><strong>{{book.year}}</strong></p>
               <p>{{book.description}}</p>
-              <button type="button" @click="editBook(book)">Edit Book</button>
+              <div class="editButtonDiv">
+                <button type="button" class="editButton" :value="book.book_id" @click="editBook(book)">Edit Book</button>
+                <button type="button" class="deleteButton" :value="book.book_id" @click="deleteBook(book)">Delete Book</button>
+              </div>
           </div>
           <v-pagination
             v-model="page"
@@ -62,8 +60,6 @@ export default {
     return {
       books: [],
       page: 1,
-      inputSearch: '',
-      checkedBooks: []
     }
   },
   methods: {
@@ -160,7 +156,16 @@ export default {
       return 0;
     },
     editBook(book) {
-      console.log(book);
+      // redirect page with props
+      this.$router.push({ name: 'editBook', params: { id: book.book_id, book: JSON.stringify(book) }});
+
+    },
+    deleteBook(book) {
+      axios.delete(`http://localhost:5000/books/book/${book.book_id}`)
+      .then((resp) => {
+        console.log(resp.data);
+        this.$router.redirect({ name: 'search' });
+      });
     }
   },
   mounted() {
@@ -191,15 +196,15 @@ export default {
 }
 
 .bookcard {
-  max-width: 80%;
+  max-width: 70%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   border: 0.5px solid black;
   border-radius: 5px;
   box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3);
-  padding: 10px;
+  padding: 15px;
   background-color: white;
 }
 .Pagination {
@@ -227,5 +232,26 @@ export default {
 
 .filterBtns:hover {
   background-color: #737373;
+}
+
+.editButton, .deleteButton {
+  background-color: #333333;
+  color: white;
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  width: 30%;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.editButton:hover, .deleteButton:hover {
+  background-color: #737373;
+}
+
+.editButtonDiv {
+    display: flex;
+    justify-content: flex-end;
 }
 </style>
