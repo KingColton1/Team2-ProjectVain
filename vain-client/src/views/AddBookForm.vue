@@ -155,6 +155,8 @@ export default {
                         console.log(resp);
                     }).catch(error => console.error(error.response.data));
                 });
+
+                this.$router.push({ name: 'search' });
             }).catch(error => console.error(error.response.data));
 
         }

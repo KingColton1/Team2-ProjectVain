@@ -43,7 +43,7 @@ export default {
         generateTypeCountChart() {
             const margin = {top: 10, right: 30, bottom: 70, left: 40},
             width = 900 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom;
+            height = 500 - margin.top - margin.bottom;
 
             const svg = d3.select(`#counttype`)
                 .append('svg')
@@ -129,7 +129,7 @@ export default {
         generateSubjectCountChart() {
             const margin = {top: 10, right: 30, bottom: 70, left: 40},
             width = 900 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom;
+            height = 500 - margin.top - margin.bottom;
 
             const svg = d3.select(`#countsubject`)
                 .append('svg')
@@ -215,7 +215,7 @@ export default {
         generateYearCountChart() {
             const margin = {top: 10, right: 30, bottom: 70, left: 40},
             width = 900 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom;
+            height = 500 - margin.top - margin.bottom;
 
             const svg = d3.select(`#countyear`)
                 .append('svg')
@@ -301,7 +301,7 @@ export default {
         generateAuthorshipCountChart() {
             const margin = {top: 10, right: 30, bottom: 70, left: 40},
             width = 900 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom;
+            height = 500 - margin.top - margin.bottom;
 
             const svg = d3.select(`#countauthorship`)
                 .append('svg')

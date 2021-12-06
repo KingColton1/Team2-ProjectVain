@@ -81,10 +81,10 @@ export default {
 
                 // login the user and then redirect back to the main page
                 if (resp.data) {
-                    axios.post('http://localhost:8080/login')
+                    this.loginuser(email, password);
                 }
             })
-            .catch(error => console.error(error.response.data));
+            .catch(error => console.error(error));
         },
         loginUser(email, pwd) {
             const loginvar = {
@@ -95,9 +95,8 @@ export default {
 
             axios.get('http://localhost:5000/login', loginvar)
             .then(resp => {
-                if (resp.data) {
-                    this.$router.push({ name: 'search' });
-                }
+                console.log(resp);
+                this.$router.push({ name: 'search' });
             })
             .catch(error => console.error(error.response.data));
         }

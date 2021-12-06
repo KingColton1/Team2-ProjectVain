@@ -28,8 +28,17 @@ const getAllBooksWithType = (req, res) => {
     .catch(e => console.error(e.stack));
 }
 
+const getTypesForBook = (req, res) => {
+    pool.query(`SELECT * FROM ${table} WHERE book_id = $1`, [req.params.id])
+    .then(booksData => {
+        res.send(booksData.rows);
+    })
+    .catch(e => console.error(e.stack));
+}
+
 module.exports = {
     getAllBookTypes,
     addNewBookType,
-    getAllBooksWithType
+    getAllBooksWithType,
+    getTypesForBook
 }

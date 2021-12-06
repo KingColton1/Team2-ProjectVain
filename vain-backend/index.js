@@ -185,6 +185,7 @@ app.post('/bookTypes',
   bookTypes.addNewBookType
 );
 app.get('/bookTypes/book/:type', bookTypes.getAllBooksWithType);
+app.get('/bookTypes/:id', bookTypes.getTypesForBook);
 
 
 // book subjects paths

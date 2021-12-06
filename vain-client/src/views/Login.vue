@@ -52,7 +52,7 @@ export default {
             .then(resp => {
                 console.log(resp);
                 if (resp.data) { //make sure something was returned
-                               
+                    this.$router.push({ name: 'search' });
                     if(passwordHash.verify(password, password)){ //verify password
 
                         console.log('PW verifeid');

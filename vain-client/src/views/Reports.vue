@@ -28,7 +28,6 @@ export default {
     display: grid;
     grid-template-columns: auto;
     margin: auto;
-    width: 50%;
   }
 
   .grid .grid-item {

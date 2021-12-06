@@ -52,12 +52,6 @@ import SearchCheckBox from "../components/SearchCheckBox.vue";
 import axios from 'axios';
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
-<<<<<<< HEAD
-import lodash from "lodash/uniqWith";
-import isEqual from "lodash/isEqual";
-
-=======
->>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
 export default {
   components: {
     SearchCheckBox,
@@ -66,6 +60,7 @@ export default {
   data() {
     return {
       books: [],
+      allBooks: [],
       page: 1,
     }
   },
@@ -76,26 +71,24 @@ export default {
       const yearsArray = this.$refs.year.checkedYears;
 
       if (typesArray.length > 0) {
-        console.log(typesArray);
+        this.$refs.type.checkedType = [];
+        this.books = this.allBooks;
       }
       if (subjectsArray.length > 0) {
-        console.log(subjectsArray);
+        this.$refs.subject.checkedSubjects = [];
+        this.books = this.allBooks;
       }
       if(yearsArray.length > 0) {
-        console.log(yearsArray);
+        this.$refs.year.checkedYears= [];
+        this.books = this.allBooks;
       }
     },
     applyFilters() {
       // Need to grab all of the data from the filter sections and put them into seperate arrays
       const typesArray = this.$refs.type.checkedType;
       const subjectsArray = this.$refs.subject.checkedSubjects;
-<<<<<<< HEAD
-      console.log('in filters');
-      console.log( this.$cookies.get('user').role);
-     
-=======
+      
       const yearsArray = this.$refs.year.checkedYears;
->>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
       
       var entireFilteredCollection = [];
       // var tempArray = [];
@@ -199,20 +192,14 @@ export default {
       axios.delete(`http://localhost:5000/books/book/${book.book_id}`)
       .then((resp) => {
         console.log(resp.data);
-        this.$router.redirect({ name: 'search' });
+        this.$router.go();
       });
     }
   },
   mounted() {
     axios.get("http://localhost:5000/books").then((resp) => {
-        this.books = resp.data;
-<<<<<<< HEAD
-        console.log(this.books.length);
-        console.log( this.$cookies.get('user').user_id);
-        
-         
-=======
->>>>>>> a1e7baa7c9ff6753a38351fb4be0385c26360e34
+      this.books = resp.data;
+      this.allBooks = resp.data;
     });
   }
 };
@@ -239,6 +226,7 @@ export default {
 }
 
 .bookcard {
+  min-width: 70%;
   max-width: 70%;
   margin-left: auto;
   margin-right: auto;

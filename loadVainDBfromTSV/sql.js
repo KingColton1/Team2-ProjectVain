@@ -89,7 +89,7 @@ CREATE TABLE public.publisher_book (
   publisher_id int NOT NULL,
   book_id int NOT NULL,
   PRIMARY KEY (publisher_id,book_id),
-  CONSTRAINT fk_publisher_book_id FOREIGN KEY (book_id) REFERENCES public.book (book_id),
+  CONSTRAINT fk_publisher_book_id FOREIGN KEY (book_id) REFERENCES public.book (book_id) ON DELETE CASCADE,
   CONSTRAINT fk_publisher_id FOREIGN KEY (publisher_id) REFERENCES public.publisher (publisher_id)
 );
 
@@ -99,7 +99,7 @@ CREATE TABLE public.author_book (
   author_id int NOT NULL,
   book_id int NOT NULL,
   PRIMARY KEY (author_id,book_id),
-  CONSTRAINT fk_author_book_id FOREIGN KEY (book_id) REFERENCES public.book (book_id),
+  CONSTRAINT fk_author_book_id FOREIGN KEY (book_id) REFERENCES public.book (book_id) ON DELETE CASCADE,
   CONSTRAINT fk_author_id FOREIGN KEY (author_id) REFERENCES public.namedPersons (author_id));
   
 DROP TABLE IF EXISTS public.type_book;
@@ -108,7 +108,7 @@ CREATE TABLE public.type_book (
   type_id varchar(2) NOT NULL,
   book_id int NOT NULL,
   PRIMARY KEY (type_id,book_id),
-  CONSTRAINT fk_type_book_id FOREIGN KEY (book_id) REFERENCES public.book (book_id),
+  CONSTRAINT fk_type_book_id FOREIGN KEY (book_id) REFERENCES public.book (book_id) ON DELETE CASCADE,
   CONSTRAINT fk_type_id FOREIGN KEY (type_id) REFERENCES public.type (type_id));
 
   DROP TABLE IF EXISTS public.subject_book;
@@ -116,7 +116,7 @@ CREATE TABLE public.subject_book (
   subject_id varchar(2) NOT NULL,
   book_id int NOT NULL,
   PRIMARY KEY (subject_id,book_id),
-  CONSTRAINT fk_subject_book_id FOREIGN KEY (book_id) REFERENCES public.book (book_id),
+  CONSTRAINT fk_subject_book_id FOREIGN KEY (book_id) REFERENCES public.book (book_id) ON DELETE CASCADE,
   CONSTRAINT fk_subject_id FOREIGN KEY (subject_id) REFERENCES public.subject (subject_id));
 
 INSERT INTO public.type VALUES ('A','Autobiography'),('B','Biography'),('C','Compilation'),('D','Diary/Journal'),('F','Fictional'),('G','Broadside'),('L','Letters'),('U','Unknown');

@@ -17,7 +17,7 @@
             <FormCheckList headerText="Select Author(s)" listType="author" ref="authors" :authorsList="[]" /><br />
             <FormCheckList headerText="Select Publisher(s)" listType="publisher" ref="publishers" /><br />
             <FormCheckList headerText="Select Subject(s)" listType="subject" ref="subjects" /><br />
-            <FormCheckList headerText="Select Type(s)" listType="type" ref="types" />
+            <FormCheckList headerText="Select Type(s)" listType="type" ref="types" :typesList="types" />
             <div class="editButtonDiv">
                 <button class='saveEditButton' type="button" @click="saveEdit">Save Edits</button><br />
                 <button class='discardEditButton' type="button" @click="discardEdit">Cancel</button><br />
@@ -56,6 +56,12 @@ export default {
     },
     mounted() {
         this.authorship = JSON.parse(this.$props.book).authorship;
+        axios.get(`http://localhost:5000/bookTypes/${JSON.parse(this.$props.book).book_id}`)
+        .then((resp) => {
+            console.log(resp.data);
+            this.types = resp.data;
+        }).catch(error => console.error(error.response.data));
+
     },
     methods: {
         saveEdit() {
