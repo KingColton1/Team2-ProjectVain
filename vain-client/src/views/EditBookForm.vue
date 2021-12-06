@@ -2,24 +2,26 @@
     <div class="addBook-view">
         <h1 class='formTitle'>Edit Book</h1>
         <form class="ui-form" > 
-            <FormTextField placeholderText="Title" ref="title" currentValue="title" />
-            <FormTextField placeholderText="Year" ref="year" currentValue="9999" />
-            <FormTextField placeholderText="Located" ref="located" currentValue="located" />
-            <FormTextArea placeholderText="Description" ref="description" currentValue="description" />
-            <FormTextArea placeholderText="Notes" ref="notes" currentValue="notes" />
-            <FormTextArea placeholderText="Named Persons" ref="named" currentValue="named" />
+            <FormTextField placeholderText="Title" ref="title" :currentValue="JSON.parse(this.$props.book).title" />
+            <FormTextField placeholderText="Year" ref="year" :currentValue="JSON.parse(this.$props.book).year.toString()" />
+            <FormTextField placeholderText="Located" ref="located" :currentValue="JSON.parse(this.$props.book).located" />
+            <FormTextArea placeholderText="Description" ref="description" :currentValue="JSON.parse(this.$props.book).description" />
+            <FormTextArea placeholderText="Notes" ref="notes" :currentValue="JSON.parse(this.$props.book).notes" />
+            <FormTextArea placeholderText="Named Persons" ref="named" :currentValue="JSON.parse(this.$props.book).namedpersons" />
             <div class="authorship">
                 <label class='inputLabel'>Self Authored?</label><br />
-                <input type="radio" name="authorship" value="Y" v-model="authorship" /> Yes <br />
-                <input type="radio" name="authorship" value="N" v-model="authorship" /> No <br />
-                <input type="radio" name="authorship" value="U" v-model="authorship" /> Unknown <br />
+                <input id='radio-y' type="radio" name="authorship" value="Y" v-model="authorship" /> Yes <br />
+                <input id='radio-n' type="radio" name="authorship" value="N" v-model="authorship" /> No <br />
+                <input id='radio-u' type="radio" name="authorship" value="U" v-model="authorship" /> Unknown <br />
             </div><br />
             <FormCheckList headerText="Select Author(s)" listType="author" ref="authors" :authorsList="[]" /><br />
             <FormCheckList headerText="Select Publisher(s)" listType="publisher" ref="publishers" /><br />
             <FormCheckList headerText="Select Subject(s)" listType="subject" ref="subjects" /><br />
-            <FormCheckList headerText="Select Type(s)" listType="type" ref="types" />
-            <button id='saveEditButton' type="button" @click="saveEdit">Save Edits</button><br />
-            <button id='discardEditButton' type="button" @click="discardEdit">Cancel</button><br />
+            <FormCheckList headerText="Select Type(s)" listType="type" ref="types" :typesList="types" />
+            <div class="editButtonDiv">
+                <button class='saveEditButton' type="button" @click="saveEdit">Save Edits</button><br />
+                <button class='discardEditButton' type="button" @click="discardEdit">Cancel</button><br />
+            </div>
         </form>
     </div>
 </template>
@@ -34,21 +36,34 @@ export default {
         FormTextArea,
         FormCheckList
     },
+    props: {
+        book: {
+            type: String,
+            required: true
+        },
+        id: {
+            type: String
+        }
+    },
     data() {
         return {
-            authorship: '',
-            book: ''
+            authors: [],
+            publishers: [],
+            types: [],
+            subjects: [],
+            authorship: ''
         }
     },
     mounted() {
-        this.getBook(1);
+        this.authorship = JSON.parse(this.$props.book).authorship;
+        axios.get(`http://localhost:5000/bookTypes/${JSON.parse(this.$props.book).book_id}`)
+        .then((resp) => {
+            console.log(resp.data);
+            this.types = resp.data;
+        }).catch(error => console.error(error.response.data));
+
     },
     methods: {
-        getBook(id) {
-            axios.get(`http://localhost:5000/books/book/${id}`).then((resp) => {
-                this.book = resp.data[0];
-            });
-        },
         saveEdit() {
             // pull data from form fields
             const title = this.$refs.title.text;
@@ -146,12 +161,40 @@ export default {
                         console.log(resp);
                     }).catch(error => console.error(error.response.data));
                 });
+
+                this.$router.push({ name: 'search' });
             }).catch(error => console.error(error.response.data));
 
         },
         discardEdit() {
-
+            this.$router.push({ name: 'search' });
         }
     }
 };
 </script>
+<style scoped>
+.ui-form {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.editButtonDiv {
+    display: flex;
+    justify-content: center;
+}
+.saveEditButton, .discardEditButton {
+    background-color: #333333;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    width: 30%;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+.saveEditButton:hover, .discardEditButton:hover {
+    background-color: #737373;
+}
+</style>

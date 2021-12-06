@@ -15,6 +15,7 @@
                 </div><br />
             </div><br />
             <button id='signupButton' type="button" @click="registerUser">Sign Up</button><br />
+            <button id='cancelSignupButton' type="button" @click="cancelSignup">Cancel</button><br />
         </form>
     </div>
 </template>
@@ -38,6 +39,9 @@ export default {
         });
     },
     methods: {
+        cancelSignup() {
+            this.$router.push({ path: '/login' });
+        },
         registerUser() {
             // pull data
             const username = this.$refs.user.text;
@@ -77,10 +81,10 @@ export default {
 
                 // login the user and then redirect back to the main page
                 if (resp.data) {
-                    axios.post('http://localhost:8080/login')
+                    this.loginuser(email, password);
                 }
             })
-            .catch(error => console.error(error.response.data));
+            .catch(error => console.error(error));
         },
         loginUser(email, pwd) {
             const loginvar = {
@@ -91,9 +95,8 @@ export default {
 
             axios.get('http://localhost:5000/login', loginvar)
             .then(resp => {
-                if (resp.data) {
-                    window.location.href = 'http://localhost:8080/';
-                }
+                console.log(resp);
+                this.$router.push({ name: 'search' });
             })
             .catch(error => console.error(error.response.data));
         }
@@ -107,8 +110,9 @@ export default {
     align-items: center;
 }
 .signup form {
-    width: 25%;
-    padding: 10px;
+    width: 60%;
+    padding: 20px;
+    margin-bottom: 20px;
     outline: 1px solid black;
     border-radius: 5px;
 }
@@ -122,6 +126,7 @@ button {
     cursor: pointer;
     border-radius: 12px;
     transition: 0.3s;
+    margin: 10px;
 }
 
 button:hover {

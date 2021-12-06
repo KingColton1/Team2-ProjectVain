@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <div class="field" v-else-if="listType === 'subject'">
+    <div class="field" v-else-if=" listType === 'subject'">
         <label class='inputLabel'>{{this.$props.headerText}}: </label>
         <p>{{checkedSubjects}}</p>
         <div class="list">
@@ -90,6 +90,9 @@ export default {
         };
     },
     methods: {
+        selectTypes() {
+            this.checkedTypes = this.$props.typesList;
+        },
         authorVisible(author) {
             let currentAuthor = author.name.toLowerCase();
             let currentInput = this.inputAuthor.toLowerCase();
@@ -110,6 +113,9 @@ export default {
         });
         axios.get('http://localhost:5000/types').then((resp) => {
             this.types = resp.data;
+            if (this.$props.typesList) {
+                this.selectTypes();
+            }
         });
         axios.get('http://localhost:5000/subjects').then((resp) => {
             this.subjects = resp.data;

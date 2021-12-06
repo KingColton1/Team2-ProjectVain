@@ -30,4 +30,8 @@ export default {
     width: 100%;
     margin-bottom: 10px;
 }
+.fieldInput {
+    padding: 5px;
+    margin-top: 5px;
+}
 </style>

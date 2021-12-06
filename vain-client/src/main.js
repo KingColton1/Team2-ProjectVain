@@ -1,4 +1,5 @@
-import { createApp, h } from 'vue'
+import { createApp } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue'
 import AddBookForm from './views/AddBookForm'
 import Reports from './views/Reports'
@@ -6,7 +7,6 @@ import SearchPage from './views/SearchPage'
 import Signup from './views/Signup';
 import Login from './views/Login';
 import Home from './views/Home';
-import VueCookies from 'vue3-cookies'
 import Testing from './views/Testing'
 import EditBookForm from './views/EditBookForm';
 

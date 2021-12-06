@@ -1,29 +1,36 @@
 <template>
-  <div class="navBar">
-    <h1>VAIN</h1>
-    <div class="links">
-      <a href="/">Home</a>
-      <a href="/login" class="active">Login</a>
-      <a href="/addBook">Add Book</a>
-      <a href="/reports">Reports</a>
+    <div class="navBar">
+        <h1>VAIN</h1>
+        <div class="links">
+            <router-link to="/">Home</router-link>
+            <router-link to="/login" class="active">Login</router-link>
+            <router-link to="/addBook">Add Book</router-link>
+            <router-link to="/reports">Reports</router-link>
+        </div>
     </div>
-  </div>
-  <div class="login">
-    <h1>Login</h1>
-    <form>
-      <FormTextField placeholderText="Email" ref="email" />
-      <FormTextField placeholderText="Password" ref="pwd" />
-      <button id="loginButton" type="button" @click="login">Login</button><br />
-      <a href="/signup">Create an account</a>
-    </form>
-    <h3>{{ error }}</h3>
-  </div>
+    <div class="login">
+        <h1>Login</h1>
+        <form>
+            <FormTextField placeholderText="Email" ref="email" />
+            <FormTextField placeholderText="Password" ref="pwd" />
+            <button id='loginButton' type="button" @click="login">Login</button>
+            <button id='createAccountButton' type="button" @click="createAccount">Create an account</button>
+            <button id='continueGuest' type="button" @click="guestUser">Continue as Guest</button>
+        </form>
+       <h3>{{error}}</h3>
+    </div>
 </template>
 <script>
+<<<<<<< HEAD
 import FormTextField from "../components/FormTextField.vue";
 import axios from "axios";
 var passwordHash = require("password-hash");
 
+=======
+import FormTextField from '../components/FormTextField.vue';
+import axios from 'axios';
+var passwordHash = require('password-hash');
+>>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
 export default {
   data() {
     return {
@@ -91,6 +98,7 @@ export default {
   justify-content: center;
 }
 .login form {
+<<<<<<< HEAD
   width: 25%;
   padding: 10px;
   outline: 1px solid black;
@@ -113,6 +121,29 @@ export default {
 
 .login #loginButton:hover {
   background-color: #737373;
+=======
+    width: 60%;
+    padding: 20px;
+    outline: 1px solid #333333;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.login #loginButton, #createAccountButton, #continueGuest {
+    background-color: #333333;
+    color: white;
+    margin: 10px;
+    padding: 15px;
+    border: none;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: 0.3s all;
+}
+
+.login #loginButton:hover, #createAccountButton:hover, #continueGuest:hover {
+    background-color: #737373;
+>>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
 }
 
 .login a {

@@ -24,6 +24,7 @@
     "lodash": "^4.17.21",
     "password-hash": "^1.2.2",
     "vue": "^3.0.0",
+    "vue-router": "^4.0.12",
     "vue3-cookies": "^1.0.6",
     "vue3-jest": "^27.0.0-alpha.1",
     "vuetify": "^2.5.14"

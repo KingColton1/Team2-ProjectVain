@@ -3,18 +3,15 @@
     <div class="navBar">
       <h1>VAIN</h1>
       <div class="links">
-        <a href='/' class="active">Home</a>
-        <a href='/login'>Login</a>
-        <a href='/addBook'>Add Book</a>
-        <a href='/reports'>Reports</a>
+        <router-link to="/" class="active">Home</router-link>
+        <router-link to="/login">Login</router-link>
+        <router-link to="/addBook">Add Book</router-link>
+        <router-link to="/reports">Reports</router-link>
       </div>
     </div>
     <div id="container">
       <div id="filterList">
         <form action="" method="get">
-          <div id="searchBooks">
-            <input type="text" placeholder="Search..." v-model.trim="inputSearch" />
-          </div>
           <SearchCheckBox filterName="Type" ref="type" />
           <SearchCheckBox filterName="Subject" ref="subject" />
           <SearchCheckBox filterName="Year" ref="year" /><br />
@@ -24,7 +21,6 @@
       </div>
       <div id="results">
         <div class="books">
-          <p id="booksSelected">selected books: {{checkedBooks}}</p>
           <v-pagination
             v-model="page"
             :pages="Math.round(parseFloat(this.books.length/10))"
@@ -32,11 +28,13 @@
             active-color="white"
           />
           <div class="bookcard" v-for="book in books.slice((0 + ((page - 1) * 10)), (page * 10))" :key="book.book_id">
-              <input type="checkbox" v-model="checkedBooks" :value="book.book_id">
               <h3>{{book.title}}</h3>
               <p><strong>{{book.year}}</strong></p>
               <p>{{book.description}}</p>
-              <button type="button" @click="editBook(book)">Edit Book</button>
+              <div class="editButtonDiv">
+                <button type="button" class="editButton" :value="book.book_id" @click="editBook(book)">Edit Book</button>
+                <button type="button" class="deleteButton" :value="book.book_id" @click="deleteBook(book)">Delete Book</button>
+              </div>
           </div>
           <v-pagination
             v-model="page"
@@ -62,8 +60,12 @@ export default {
   data() {
     return {
       books: [],
+      allBooks: [],
       page: 1,
+<<<<<<< HEAD
       allBooks: []
+=======
+>>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
     }
   },
   methods: {
@@ -73,19 +75,26 @@ export default {
       const yearsArray = this.$refs.year.checkedYears;
 
       if (typesArray.length > 0) {
-        console.log(typesArray);
+        this.$refs.type.checkedType = [];
+        this.books = this.allBooks;
       }
       if (subjectsArray.length > 0) {
-        console.log(subjectsArray);
+        this.$refs.subject.checkedSubjects = [];
+        this.books = this.allBooks;
       }
       if(yearsArray.length > 0) {
-        console.log(yearsArray);
+        this.$refs.year.checkedYears= [];
+        this.books = this.allBooks;
       }
     },
     applyFilters() {
       // Need to grab all of the data from the filter sections and put them into seperate arrays
       const typesArray = this.$refs.type.checkedType;
       const subjectsArray = this.$refs.subject.checkedSubjects;
+<<<<<<< HEAD
+=======
+      
+>>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
       const yearsArray = this.$refs.year.checkedYears;
       
       var entireFilteredCollection = [];
@@ -182,7 +191,13 @@ export default {
       return 0;
     },
     editBook(book) {
+<<<<<<< HEAD
       this.$router.push({ name: 'editBook', params: { id: book.book_id, book: JSON.stringify(book) }});
+=======
+      // redirect page with props
+      this.$router.push({ name: 'editBook', params: { id: book.book_id, book: JSON.stringify(book) }});
+
+>>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
     },
     deleteBook(book) {
       axios.delete(`http://localhost:5000/books/book/${book.book_id}`)
@@ -194,10 +209,15 @@ export default {
   },
   mounted() {
     axios.get("http://localhost:5000/books").then((resp) => {
+<<<<<<< HEAD
         this.books = resp.data;
         console.log(this.books.length);
         console.log( this.$cookies.get('user').user_id);
         
+=======
+      this.books = resp.data;
+      this.allBooks = resp.data;
+>>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
     });
   }
 };
@@ -224,15 +244,16 @@ export default {
 }
 
 .bookcard {
-  max-width: 80%;
+  min-width: 70%;
+  max-width: 70%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   border: 0.5px solid black;
   border-radius: 5px;
   box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3);
-  padding: 10px;
+  padding: 15px;
   background-color: white;
 }
 .Pagination {
@@ -260,5 +281,26 @@ export default {
 
 .filterBtns:hover {
   background-color: #737373;
+}
+
+.editButton, .deleteButton {
+  background-color: #333333;
+  color: white;
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  width: 30%;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.editButton:hover, .deleteButton:hover {
+  background-color: #737373;
+}
+
+.editButtonDiv {
+    display: flex;
+    justify-content: flex-end;
 }
 </style>

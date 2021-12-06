@@ -2,10 +2,10 @@
     <div class="navBar">
         <h1>VAIN</h1>
         <div class="links">
-            <a href='/'>Home</a>
-            <a href='/login'>Login</a>
-            <a href='/addBook' class="active">Add Book</a>
-            <a href='/reports'>Reports</a>
+            <router-link to="/">Home</router-link>
+            <router-link to="/login">Login</router-link>
+            <router-link to="/addBook" class="active">Add Book</router-link>
+            <router-link to="/reports">Reports</router-link>
         </div>
     </div>
     <div class="addBook-view">
@@ -155,6 +155,8 @@ export default {
                         console.log(resp);
                     }).catch(error => console.error(error.response.data));
                 });
+
+                this.$router.push({ name: 'search' });
             }).catch(error => console.error(error.response.data));
 
         }
@@ -163,7 +165,7 @@ export default {
 </script>
 <style>
 .ui-form {
-    width: 50%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
