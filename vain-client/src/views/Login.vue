@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div class="navBar">
         <h1>VAIN</h1>
         <div class="links">
@@ -19,18 +20,13 @@
         </form>
        <h3>{{error}}</h3>
     </div>
+  </div>
 </template>
 <script>
-<<<<<<< HEAD
 import FormTextField from "../components/FormTextField.vue";
 import axios from "axios";
 var passwordHash = require("password-hash");
 
-=======
-import FormTextField from '../components/FormTextField.vue';
-import axios from 'axios';
-var passwordHash = require('password-hash');
->>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
 export default {
   data() {
     return {
@@ -98,30 +94,6 @@ export default {
   justify-content: center;
 }
 .login form {
-<<<<<<< HEAD
-  width: 25%;
-  padding: 10px;
-  outline: 1px solid black;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-.login #loginButton {
-  background-color: #333333;
-  color: white;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 15px;
-  border: none;
-  width: 100%;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 12px;
-  transition: 0.3s;
-}
-
-.login #loginButton:hover {
-  background-color: #737373;
-=======
     width: 60%;
     padding: 20px;
     outline: 1px solid #333333;
@@ -143,7 +115,6 @@ export default {
 
 .login #loginButton:hover, #createAccountButton:hover, #continueGuest:hover {
     background-color: #737373;
->>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
 }
 
 .login a {

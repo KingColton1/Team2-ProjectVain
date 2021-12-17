@@ -62,10 +62,6 @@ export default {
       books: [],
       allBooks: [],
       page: 1,
-<<<<<<< HEAD
-      allBooks: []
-=======
->>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
     }
   },
   methods: {
@@ -91,10 +87,7 @@ export default {
       // Need to grab all of the data from the filter sections and put them into seperate arrays
       const typesArray = this.$refs.type.checkedType;
       const subjectsArray = this.$refs.subject.checkedSubjects;
-<<<<<<< HEAD
-=======
       
->>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
       const yearsArray = this.$refs.year.checkedYears;
       
       var entireFilteredCollection = [];
@@ -191,13 +184,9 @@ export default {
       return 0;
     },
     editBook(book) {
-<<<<<<< HEAD
-      this.$router.push({ name: 'editBook', params: { id: book.book_id, book: JSON.stringify(book) }});
-=======
       // redirect page with props
       this.$router.push({ name: 'editBook', params: { id: book.book_id, book: JSON.stringify(book) }});
 
->>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
     },
     deleteBook(book) {
       axios.delete(`http://localhost:5000/books/book/${book.book_id}`)
@@ -209,15 +198,8 @@ export default {
   },
   mounted() {
     axios.get("http://localhost:5000/books").then((resp) => {
-<<<<<<< HEAD
-        this.books = resp.data;
-        console.log(this.books.length);
-        console.log( this.$cookies.get('user').user_id);
-        
-=======
       this.books = resp.data;
       this.allBooks = resp.data;
->>>>>>> 3db0917b8dee5cc8aa614b554782e257f6ef789d
     });
   }
 };

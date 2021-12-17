@@ -80,9 +80,7 @@ export default {
                 console.log(resp);
 
                 // login the user and then redirect back to the main page
-                if (resp.data) {
-                    this.loginuser(email, password);
-                }
+                this.$router.push({ name: 'search' });
             })
             .catch(error => console.error(error));
         },
